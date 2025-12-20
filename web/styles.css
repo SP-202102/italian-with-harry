@@ -1,0 +1,23 @@
+/* GH-AUTOVERSION: v0.1.1 */
+:root { color-scheme: light; }
+body { margin: 0; font-family: system-ui, Arial, sans-serif; background: #fafafa; color: #111; }
+.container { max-width: 920px; margin: 24px auto; padding: 0 16px; }
+h1 { margin: 0 0 16px; font-size: 28px; }
+label { display: inline-flex; gap: 8px; align-items: center; margin-right: 12px; }
+select, button, input { font: inherit; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0 14px; }
+.meta { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0.8; margin: 6px 0 12px; }
+.error { color: #b00020; font-weight: 600; }
+.card { background: white; border: 1px solid #ddd; border-radius: 12px; padding: 14px; cursor: pointer; }
+.cardTop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.badge { font-size: 12px; padding: 2px 8px; border: 1px solid #ccc; border-radius: 999px; background: #fff; }
+.timestamp { font-size: 12px; opacity: 0.7; }
+.cardText { min-height: 140px; display: flex; flex-direction: column; gap: 10px; }
+.front { font-size: 22px; line-height: 1.25; }
+.back { font-size: 18px; font-weight: 700; }
+.context { font-size: 14px; opacity: 0.85; }
+.hint { font-size: 12px; opacity: 0.6; margin-top: auto; }
+.nav { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+button { padding: 8px 10px; border-radius: 10px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+button:hover { background: #f0f0f0; }
+.footer { margin-top: 18px; opacity: 0.65; font-size: 12px; }
