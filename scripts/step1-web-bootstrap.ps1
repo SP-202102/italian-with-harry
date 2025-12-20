@@ -135,9 +135,8 @@ try {
   }
 
   $manifestJson = $manifestObject | ConvertTo-Json -Depth 6
-  $manifestJsonWithHeader = "// GH-AUTOVERSION: $VersionTag`n" + $manifestJson
+  Set-Content -Path $manifestPath -Value $manifestJson -Encoding UTF8
 
-  Set-Content -Path $manifestPath -Value $manifestJsonWithHeader -Encoding UTF8
   Write-Ok ("Wrote manifest: " + $manifestPath)
 
   # 3) Create web container files (no build tooling)
