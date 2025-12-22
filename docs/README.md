@@ -14,6 +14,7 @@ Each learning path lives under:
 - `web/paths/<path-id>/`
   - `manifest.json` (metadata + list of subtitle files)
   - `raw/` (SRT files)
+  - `cards/` (generated study data: phrases + words/tokens + translations)
 
 ## Project structure
 
@@ -21,13 +22,13 @@ Each learning path lives under:
   Source input subtitles. Put your `.srt` files here.
 
 - `scripts/step1-web-bootstrap.ps1`  
-  Copies/normalizes subtitles into the web path folder and generates manifests and web container files.
+  Copies/normalizes subtitles into the web path folder and generates the web container files.
+
+- `scripts/step2-generate-cards.*` (planned)  
+  Developer-only build step that parses SRT, generates cards, and (optionally) uses DeepL to create German translations.
 
 - `web/`  
-  Static website (no backend).
-
-- `web/paths/<path-id>/manifest.json`  
-  Strict JSON (no comments). Contains `autoversion`, timestamps, and the list of SRT files.
+  Static website (no backend). Intended to run on localhost or GitHub Pages.
 
 ## Run locally (no build tooling)
 
@@ -57,36 +58,63 @@ Shuffle can be enabled for any mode.
 
 ## Why a local web server is required
 
-The app loads `manifest.json` and `.srt` files via `fetch()`. Browsers typically block such reads when opening the page via `file://` for security reasons. Serving the static files via HTTP (localhost) or HTTPS (GitHub Pages) fixes this.
+The app loads JSON and `.srt` files via `fetch()`. Browsers typically block such reads when opening the page via `file://` for security reasons. Serving the static files via HTTP (localhost) or HTTPS (GitHub Pages) fixes this.
+
+## Translations: how we keep it clean and safe
+
+### Key point: API keys must never be shipped to the browser
+
+DeepL API keys are secrets. Therefore:
+
+- The **browser app must not call DeepL directly** (GitHub Pages is public).
+- Translations are generated in a **developer build step** on a trusted machine.
+- The generated translation files are committed as static JSON under the learning path.
+
+DeepL provides an API Free plan and an API Pro plan. API Free includes a monthly character quota, and Free/Pro have different endpoints (`api-free.deepl.com` vs `api.deepl.com`). See DeepL docs for details.
+
+### Planned output files (per learning path)
+
+- `web/paths/<path-id>/cards/phrases.de.json`
+- `web/paths/<path-id>/cards/words.de.json`
+
+The app loads these as **base translations**.
+
+### Editable overrides (no database)
+
+Users can edit translations in the UI.
+Edits are stored as **local overrides** (localStorage) and can be exported.
+
+Developers can merge exported overrides back into the repo by updating the learning path files (normal git workflow).
 
 ## Roadmap (keep it minimal)
 
-### Create new learning paths from inside the app (Import/Export)
+### Create learning paths from inside the app (Import/Export)
 
-Because GitHub Pages (static hosting) cannot write new files to the server, creating paths **in-app** will be done via:
+Static hosting cannot write new files on the server. Creating paths in-app will be done via:
 
 - **Import:** user uploads one or more `.srt` files in the UI
-- App parses them, builds a new learning path in memory
-- **Export:** user downloads a zip (or set of files) containing:
+- App parses them and builds a learning path in memory
+- **Export:** user downloads a folder (or zip) containing:
   - `manifest.json`
-  - the sanitized `.srt` files
+  - sanitized `.srt` files
+  - generated `cards/*.json` (if available)
 
-For the first iteration, this will be aimed at users who can add these exported files into `web/paths/<new-path-id>/` and commit them to GitHub.
+For the first iteration, this is aimed at users who can commit these exported files into `web/paths/<new-path-id>/`.
 
 No database required.
 
 ### Text-to-Speech (important)
 
-We can add TTS using the browser Web Speech API (`speechSynthesis`). This can remain fully client-side.
+Add TTS using the browser Web Speech API (`speechSynthesis`). Fully client-side.
 
 ### Voice input (nice to have)
 
-Optional speech recognition via the SpeechRecognition API (best supported in Chromium browsers). Also client-side.
+Optional speech recognition via the SpeechRecognition API (best supported in Chromium). Client-side.
 
-### Persistence (no database by default)
+### Word information (POS / lemma / infinitive)
 
-- Store progress (known/unknown, last position, user translations) in `localStorage` first.
-- If syncing across devices becomes important later, we can add an optional sync mechanism, but the default remains local and static.
+DeepL is a translation service; it does **not** provide part-of-speech or lemma/infinitive analysis.
+For word info we will likely use a separate NLP component (e.g., an Italian lemmatizer/POS tagger) during the developer build step and store results in `cards/words.de.json`.
 
 ## Notes about “no build” mode
 

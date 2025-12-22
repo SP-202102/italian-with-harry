@@ -1,17 +1,49 @@
-// GH-AUTOVERSION: v0.1.4
+// GH-AUTOVERSION: v0.1.6
 const { useEffect, useMemo, useState } = React;
 
 const STUDY_MODES = [
   { id: "phrases", label: "Phrases only" },
-  { id: "words", label: "Wörter & Tokens" },
+  { id: "words", label: "Words & tokens" },
   { id: "mixed", label: "Mixed" },
 ];
 
-async function loadManifest() {
-  const response = await fetch("./data/manifest.json", { cache: "no-store" });
-  if (!response.ok) throw new Error(`Failed to load manifest.json: ${response.status} ${response.statusText}`);
-  const manifest = await response.json();
-  return manifest.items ?? [];
+const THEMES = [
+  { id: "smilingpirate", label: "Smiling Pirate" },
+  { id: "light", label: "Light" },
+  { id: "dark", label: "Dark" },
+  { id: "system", label: "System" },
+  { id: "custom", label: "Custom" },
+];
+
+const DEFAULT_THEME = "smilingpirate";
+const THEME_STORAGE_KEY = "llm.theme";
+
+const DEFAULT_PATH_ID = "italian-with-harry";
+
+function applyTheme(themeId) {
+  document.body.dataset.theme = themeId;
+}
+
+function loadSavedTheme() {
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved && THEMES.some((t) => t.id === saved)) return saved;
+  } catch {}
+  return DEFAULT_THEME;
+}
+
+function saveTheme(themeId) {
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, themeId);
+  } catch {}
+}
+
+async function loadLearningPath(pathId) {
+  const response = await fetch(`./paths/${pathId}/manifest.json`, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Failed to load learning path manifest: ${response.status} ${response.statusText}`);
+  }
+  return await response.json();
 }
 
 function parseSrtTime(timeString) {
@@ -26,17 +58,14 @@ function formatHms(totalSeconds) {
   const ss = String(s % 60).padStart(2, "0");
   return `${hh}:${mm}:${ss}`;
 }
-
 function parseSrt(srtText) {
   const normalized = srtText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   const blocks = normalized.split(/\n\s*\n/);
   const entries = [];
-
   for (const block of blocks) {
     const lines = block.split("\n").map((l) => l.trim()).filter(Boolean);
     if (lines.length < 2) continue;
 
-    let index = null;
     let timeLine = null;
     let textLines = [];
 
@@ -44,8 +73,6 @@ function parseSrt(srtText) {
       timeLine = lines[0];
       textLines = lines.slice(1);
     } else {
-      const maybeIndex = Number(lines[0]);
-      index = Number.isFinite(maybeIndex) ? maybeIndex : null;
       timeLine = lines[1];
       textLines = lines.slice(2);
     }
@@ -65,9 +92,7 @@ function parseSrt(srtText) {
       .trim();
 
     if (!text) continue;
-    if (text.toLowerCase().includes("subtitles")) continue;
-
-    entries.push({ index, startSeconds, endSeconds, text });
+    entries.push({ startSeconds, endSeconds, text });
   }
   return entries;
 }
@@ -75,7 +100,6 @@ function parseSrt(srtText) {
 function assignChapterId(seconds, chapterSizeSeconds) {
   return Math.floor(seconds / chapterSizeSeconds) + 1;
 }
-
 function buildChapters(entries, chapterSizeSeconds) {
   const maxEnd = Math.max(...entries.map((e) => e.endSeconds), 0);
   const count = Math.max(1, Math.ceil(maxEnd / chapterSizeSeconds));
@@ -83,11 +107,10 @@ function buildChapters(entries, chapterSizeSeconds) {
   for (let i = 0; i < count; i++) {
     const start = i * chapterSizeSeconds;
     const end = Math.min((i + 1) * chapterSizeSeconds, maxEnd);
-    chapters.push({ id: i + 1, title: `Kapitel ${i + 1}`, startHms: formatHms(start), endHms: formatHms(end) });
+    chapters.push({ id: i + 1, title: `Chapter ${i + 1}`, startHms: formatHms(start), endHms: formatHms(end) });
   }
   return chapters;
 }
-
 function buildPhraseCards(entries, chapterSizeSeconds) {
   return entries.map((e, idx) => ({
     id: `p_${idx}`,
@@ -99,7 +122,6 @@ function buildPhraseCards(entries, chapterSizeSeconds) {
     timestamp: formatHms(e.startSeconds),
   }));
 }
-
 function isStopWordIt(token) {
   const stop = new Set([
     "che","e","di","a","da","in","un","una","il","lo","la","i","gli","le",
@@ -108,13 +130,12 @@ function isStopWordIt(token) {
   ]);
   return stop.has(token);
 }
-
 function buildWordCards(entries, chapterSizeSeconds, options) {
   const minWordLength = options?.minWordLength ?? 3;
   const maxWordCardsPerChapter = options?.maxWordCardsPerChapter ?? 120;
-
   const tokenRegex = /[a-zàèéìòóù']+/gi;
-  const chapterWordCounts = new Map(); // chapterId -> Map(token->count)
+
+  const chapterWordCounts = new Map();
 
   for (const e of entries) {
     const chapterId = assignChapterId(e.startSeconds, chapterSizeSeconds);
@@ -145,16 +166,13 @@ function buildWordCards(entries, chapterSizeSeconds, options) {
   }
   return cards;
 }
-
 function buildCardsByMode(entries, chapterSizeSeconds, mode) {
   const phraseCards = buildPhraseCards(entries, chapterSizeSeconds);
   const wordCards = buildWordCards(entries, chapterSizeSeconds, { minWordLength: 3, maxWordCardsPerChapter: 120 });
-
   if (mode === "phrases") return phraseCards;
   if (mode === "words") return wordCards;
-  return [...phraseCards, ...wordCards]; // mixed
+  return [...phraseCards, ...wordCards];
 }
-
 function shuffleArray(array) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -178,21 +196,11 @@ function Flashcards({ cards, shuffleEnabled }) {
 
   const current = deck[index];
 
-  function next() {
-    setFlipped(false);
-    setIndex((i) => (i + 1 < deck.length ? i + 1 : 0));
-  }
-  function prev() {
-    setFlipped(false);
-    setIndex((i) => (i - 1 >= 0 ? i - 1 : deck.length - 1));
-  }
-  function reshuffle() {
-    setDeck(shuffleArray(deck));
-    setIndex(0);
-    setFlipped(false);
-  }
+  function next() { setFlipped(false); setIndex((i) => (i + 1 < deck.length ? i + 1 : 0)); }
+  function prev() { setFlipped(false); setIndex((i) => (i - 1 >= 0 ? i - 1 : deck.length - 1)); }
+  function reshuffle() { setDeck(shuffleArray(deck)); setIndex(0); setFlipped(false); }
 
-  if (!current) return <p>Keine Karten in diesem Kapitel.</p>;
+  if (!current) return <p>No cards in this chapter.</p>;
 
   return (
     <div className="cards">
@@ -205,11 +213,11 @@ function Flashcards({ cards, shuffleEnabled }) {
         {!flipped ? (
           <div className="cardText">
             <div className="front">{current.frontIt}</div>
-            <div className="hint">Klick zum Umdrehen</div>
+            <div className="hint">Click to flip</div>
           </div>
         ) : (
           <div className="cardText">
-            <div className="back">{current.backDe || "(Deutsch noch leer)"}</div>
+            <div className="back">{current.backDe || "(German empty)"}</div>
             <div className="context">{current.contextIt}</div>
           </div>
         )}
@@ -225,8 +233,38 @@ function Flashcards({ cards, shuffleEnabled }) {
   );
 }
 
+function ThemeMenu({ themeId, onChangeTheme, isOpen, onClose }) {
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.key === "Escape") onClose();
+    }
+    if (isOpen) window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="themeMenuBackdrop" onClick={onClose}>
+      <div className="themeMenu" onClick={(e) => e.stopPropagation()}>
+        <div className="themeMenuTitle">Theme</div>
+        {THEMES.map((t) => (
+          <button
+            key={t.id}
+            className={"themeMenuItem" + (t.id === themeId ? " active" : "")}
+            onClick={() => onChangeTheme(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+        <div className="themeMenuHint">Tip: Press ESC to close</div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
-  const [movies, setMovies] = useState([]);
+  const [learningPath, setLearningPath] = useState(null);
   const [movieId, setMovieId] = useState("");
   const [chapterMinutes, setChapterMinutes] = useState(7);
   const [studyMode, setStudyMode] = useState("phrases");
@@ -236,6 +274,15 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
 
+  // theme
+  const [themeId, setThemeId] = useState(loadSavedTheme());
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+
+  useEffect(() => {
+    applyTheme(themeId);
+    saveTheme(themeId);
+  }, [themeId]);
+
   const chapterSizeSeconds = chapterMinutes * 60;
 
   useEffect(() => {
@@ -244,10 +291,11 @@ function App() {
       setLoading(true);
       setErrorText("");
       try {
-        const items = await loadManifest();
+        const path = await loadLearningPath(DEFAULT_PATH_ID);
         if (cancelled) return;
-        setMovies(items);
-        if (items.length > 0) setMovieId(items[0].id);
+        setLearningPath(path);
+        const first = (path.items ?? [])[0];
+        if (first) setMovieId(first.id);
       } catch (e) {
         if (!cancelled) setErrorText(String(e?.message ?? e));
       } finally {
@@ -259,7 +307,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const movie = movies.find((m) => m.id === movieId);
+    if (!learningPath) return;
+    const movie = (learningPath.items ?? []).find((m) => m.id === movieId);
     if (!movie) return;
 
     let cancelled = false;
@@ -267,7 +316,7 @@ function App() {
       setLoading(true);
       setErrorText("");
       try {
-        const response = await fetch(movie.path, { cache: "no-store" });
+        const response = await fetch(`./paths/${learningPath.pathId}/${movie.path}`, { cache: "no-store" });
         if (!response.ok) throw new Error(`Failed to fetch SRT: ${response.status} ${response.statusText}`);
         const text = await response.text();
         const parsed = parseSrt(text);
@@ -280,13 +329,13 @@ function App() {
     }
     loadSrt();
     return () => { cancelled = true; };
-  }, [movieId, movies]);
+  }, [learningPath, movieId]);
 
   const chapters = useMemo(() => buildChapters(entries, chapterSizeSeconds), [entries, chapterSizeSeconds]);
   const cards = useMemo(() => buildCardsByMode(entries, chapterSizeSeconds, studyMode), [entries, chapterSizeSeconds, studyMode]);
 
   const [selectedChapterId, setSelectedChapterId] = useState(1);
-  useEffect(() => setSelectedChapterId(1), [movieId, chapterMinutes]);
+  useEffect(() => setSelectedChapterId(1), [movieId, chapterMinutes, studyMode]);
 
   const chapterCards = useMemo(() => cards.filter((c) => c.chapterId === selectedChapterId), [cards, selectedChapterId]);
 
@@ -294,19 +343,19 @@ function App() {
     <div className="container">
       <div className="header">
         <h1 className="title">Learn Languages with Movies (LLM)</h1>
-        <p className="subtitle">Italian with Harry</p>
+        <p className="subtitle">{learningPath ? learningPath.pathTitle : "Loading learning path..."}</p>
       </div>
 
       <div className="controls">
         <label>
-          Film:
-          <select value={movieId} onChange={(e) => setMovieId(e.target.value)} disabled={movies.length === 0}>
-            {movies.map((m) => <option key={m.id} value={m.id}>{m.title}</option>)}
+          Movie:
+          <select value={movieId} onChange={(e) => setMovieId(e.target.value)} disabled={!learningPath}>
+            {(learningPath?.items ?? []).map((m) => <option key={m.id} value={m.id}>{m.title}</option>)}
           </select>
         </label>
 
         <label>
-          Kapitel-Minuten:
+          Chapter minutes:
           <select value={chapterMinutes} onChange={(e) => setChapterMinutes(Number(e.target.value))}>
             {[5, 7, 10, 12].map((m) => <option key={m} value={m}>{m}</option>)}
           </select>
@@ -320,11 +369,9 @@ function App() {
         </label>
 
         <label>
-          Kapitel:
+          Chapter:
           <select value={selectedChapterId} onChange={(e) => setSelectedChapterId(Number(e.target.value))}>
-            {chapters.map((c) => (
-              <option key={c.id} value={c.id}>{c.title} ({c.startHms}-{c.endHms})</option>
-            ))}
+            {chapters.map((c) => <option key={c.id} value={c.id}>{c.title} ({c.startHms}-{c.endHms})</option>)}
           </select>
         </label>
 
@@ -334,15 +381,15 @@ function App() {
         </label>
       </div>
 
-      {loading && <p>Lade ...</p>}
-      {errorText && <p className="error">Fehler: {errorText}</p>}
+      {loading && <p>Loading...</p>}
+      {errorText && <p className="error">Error: {errorText}</p>}
 
       {!loading && !errorText && entries.length > 0 && (
         <>
           <div className="meta">
-            <span>Subtitle-Eintraege: {entries.length}</span>
-            <span>Kapitel: {chapters.length}</span>
-            <span>Karten (dieses Kapitel): {chapterCards.length}</span>
+            <span>Subtitle lines: {entries.length}</span>
+            <span>Chapters: {chapters.length}</span>
+            <span>Cards (this chapter): {chapterCards.length}</span>
           </div>
 
           <Flashcards cards={chapterCards} shuffleEnabled={shuffleEnabled} />
@@ -350,12 +397,23 @@ function App() {
       )}
 
       <p className="footer">
-        Hinweis: Babel-Warnung ist normal im "no-build" Modus. Spaeter koennen wir JSX entfernen oder precompilen.
+        Tip: click the pirate logo to switch themes.
       </p>
+
       <img
-        className="pirateLogo"
+        className="pirateLogo clickable"
         src="./assets/pirate-quad.png"
         alt="Smiling Pirate"
+        onClick={() => setThemeMenuOpen(true)}
+        role="button"
+        tabIndex={0}
+      />
+
+      <ThemeMenu
+        themeId={themeId}
+        onChangeTheme={(id) => { setThemeId(id); setThemeMenuOpen(false); }}
+        isOpen={themeMenuOpen}
+        onClose={() => setThemeMenuOpen(false)}
       />
     </div>
   );
