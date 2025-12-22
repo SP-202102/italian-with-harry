@@ -1,156 +1,26 @@
-# Learn Languages with Movies (LLM)
+# italian-with-harry
 
-LLM is a minimal, static learning app that turns movie subtitles into flashcards.
+A minimal, static, GitHub-friendly learning app to study **Italian ↔ German** using movie subtitles (SRT).
 
-This repo uses a **hybrid approach**:
+This repository follows a “static dataset + local edits” approach:
 
-- **Server-prepared (committed) data** per learning path (cards + base translations)
-- **Client-side overrides** in localStorage (editable cards)
-- Optional **export/import** of overrides for developer workflows
+- **Base cards** are generated offline (Python Step2) and committed as JSON under `web/paths/.../cards/`
+- Users can **edit meanings/translations locally** (stored in `localStorage`)
+- Local edits can be **exported** as JSON and later merged back into the repo by developers
 
-## README location
+No database required for the core workflow.
 
-The main `README.md` belongs in the **repo root**.
+---
 
-Additional READMEs are optional. If a subfolder has its own README, it should be explicit
-(e.g. `web/README.md`, `scripts/README.md`). Right now we only need the root README.
+## Run (local)
 
-## Folder structure (complete)
-
-### `/web` (required)
-
-This is the **static website root**.
-Anything the browser must `fetch()` must live under `/web`.
-
-- `/web/index.html` — entry page
-- `/web/app.js` — the React app (no build step; in-browser Babel)
-- `/web/styles.css` — styles + themes
-- `/web/assets/` — images (e.g. logo)
-- `/web/paths/` — all learning paths served to the browser
-  - `/web/paths/<path-id>/manifest.json` — learning path metadata
-  - `/web/paths/<path-id>/raw/` — subtitle sources for the path (served)
-  - `/web/paths/<path-id>/cards/` — **generated card data** (served + committed)
-    - `phrases.base.de.json`
-    - `words.base.de.json`
-
-### `/data` (developer inputs/outputs; not served)
-
-A **developer workspace**. The web app does not load from here.
-
-- `/data/raw/` — original subtitle sources (inputs for scripts)
-- `/data/processed/` — optional scratch/intermediate outputs (not required)
-
-Rule of thumb:
-- If the browser should load it → it must be under `/web`.
-- If a script uses it as input → it can live under `/data`.
-
-### `/scripts` (developer-only tooling)
-
-- `/scripts/step1-web-bootstrap.ps1` — creates web containers and copies raw SRT into `/web/paths/.../raw`
-- `/scripts/step2-generate-cards.py` — generates committed cards JSON into `/web/paths/.../cards`
-
-### `/app` (optional / currently not needed)
-
-If you have an `/app` folder, it is typically from a previous Vite/Node build setup.
-
-With the current **no-build** approach, `/app` is **not required**.
-
-Recommendation:
-- If you don’t use `/app`, delete it to keep the repo clean.
-- If you want a production build later (no in-browser Babel), `/app` could become relevant again.
-
-## Windows: why `python` may not be recognized
-
-On Windows, `python` is only recognized if Python was added to PATH.
-If it’s not, use the Python Launcher:
+From repo root:
 
 ```powershell
-py --version
-py -V
+pwsh -File .\web\run-webserver.ps1
 ```
 
-Run scripts like this:
-
-```powershell
-py .\scripts\step2-generate-cards.py --help
-```
-
-## Step 1: bootstrap web + learning path folder
-
-```powershell
-pwsh -File .\scripts\step1-web-bootstrap.ps1 -Force
-```
-
-This creates/updates containers and copies SRTs into:
-
-- `web/paths/<path-id>/raw/`
-
-## Step 2: generate cards from bilingual subtitles (IT + DE)
-
-This step aligns phrase translations from the German SRT by timestamps (no DeepL).
-
-### Important: alignment quality and “missing text”
-
-IT and DE subtitles often split/merge sentences differently.
-If you pick exactly one DE line per IT line, you can lose parts of the sentence.
-
-Therefore Step2 uses a safer strategy:
-
-- For each IT line, collect **multiple DE lines** that overlap the IT time window
-  (with a small padding), and concatenate them.
-- This favors **duplication over omission** (better for bootstrapping).
-
-### Example (HP1, first 14 minutes = 2×7 minutes)
-
-Run from repo root:
-
-```powershell
-py .\scripts\step2-generate-cards.py `
-  --it "data/raw/Harry Potter 1 - Harry Potter e la Pietra Filosofale (Italian).srt" `
-  --de "data/raw/Harry Potter 1 - Harry Potter und der Stein der Weisen (deutsch).srt" `
-  --out "web/paths/italian-with-harry/cards" `
-  --path-id "italian-with-harry" `
-  --movie-id "hp1" `
-  --max-minutes 14 `
-  --chapter-minutes 7 `
-  --merge-it-adjacent `
-  --merge-it-gap-ms 350 `
-  --de-pad-ms 250 `
-  --de-max-lines 4
-```
-
-Generated files (commit these):
-
-- `web/paths/italian-with-harry/cards/phrases.base.de.json`
-- `web/paths/italian-with-harry/cards/words.base.de.json`
-
-## Editing translations (overrides)
-
-The app loads committed base translations from `cards/*.json`.
-
-Edits are stored locally in the browser (localStorage).
-This keeps the site static and avoids any database.
-
-The app can export overrides to JSON so developers can merge them back into the repo.
-
-## Deep links to translation tools (user-configurable)
-
-Each card shows configurable deep links (e.g., DeepL, Google Translate, Wiktionary).
-Templates are stored in localStorage and can use placeholders:
-
-- `{it}` — Italian text (URL-encoded)
-- `{de}` — German text (URL-encoded)
-
-Example DeepL template:
-
-- `https://www.deepl.com/translator?share=generic#it/de/{it}`
-
-Note: Some tools (e.g., custom GPTs) do not support passing text via URL.
-In that case, the app provides copy buttons for IT and DE.
-
-## Run locally
-
-Start a local web server (required because `file://` blocks `fetch()` in most browsers):
+Or manual:
 
 ```powershell
 cd web
@@ -159,12 +29,187 @@ py -m http.server 5173
 
 Then open:
 
-- http://localhost:5173
+- `http://localhost:5173/`
 
-## Roadmap (minimal)
+> Why not file:// ?
+> Most browsers block `fetch()` for local files. This app loads JSON via `fetch()`.
 
-- Import overrides JSON (currently: export only)
-- Import/Export learning paths in-app (developer-oriented first)
-- Text-to-speech via Web Speech API (`speechSynthesis`)
-- Optional voice input via SpeechRecognition (Chromium-based browsers)
-- Optional NLP enrichment for word info (POS/lemma/infinitive)
+---
+
+## UI model (v0.2.9)
+
+The main viewport is designed to reduce eye movement:
+
+- **Fixed-height card area** (50% of the screen height) with internal scrolling
+- A **4-column header** above the card:
+  1) Browse (Prev/Next/Flip + Front/Back badge)
+  2) Actions (Copy IT/DE, Edit meaning, Export)
+  3) Links (DeepL, Wiktionary, etc.)
+  4) Options (Shuffle, Reset-to-front)
+
+**Action buttons and link buttons use the same “pill” styling**.
+
+Front/Back and mode are also shown **inside the card** as small status pills.  
+Back side uses a **slightly different background** for orientation.
+
+---
+
+## Debug panel
+
+Debug is **default ON** and located **under the text/card area**, so you can see what the app tried to load.
+
+It logs:
+- which files were requested (manifest / cards / meanings)
+- load success/failure
+- number of cards loaded
+
+You can disable it (checkbox), and the preference is stored in `localStorage`.
+
+---
+
+## Data model
+
+### Phrases (base)
+
+`web/paths/<pathId>/cards/phrases.base.de.json`
+
+- each card has:
+  - `it`: Italian phrase
+  - `de`: German subtitle range (aligned; may be duplicated rather than omitted)
+
+### Words/tokens (base)
+
+`web/paths/<pathId>/cards/words.base.de.json`
+
+- each card has:
+  - `it`: the token (surface form)
+  - `de`: **context** (from subtitles)
+  - `examples`: 1..n examples (timestamp + it + de)
+  - `freq`: frequency count
+
+Important:
+- `de` in `words.base.de.json` is **context**, not “dictionary meaning”.
+
+### Word meanings (seed)
+
+`web/paths/<pathId>/cards/words.meanings.de.json`
+
+This file provides initial German meanings for tokens. The app supports two formats:
+
+**A) Legacy:**
+```json
+{ "meanings": { "questo": "dies", "lettera": "Brief" } }
+```
+
+**B) Lemmas + aliases (preferred):**
+```json
+{
+  "lemmas":  { "lettera": "Brief", "buono": "gut" },
+  "aliases": { "lettere": "lettera", "buon": "buono", "buone": "buono" }
+}
+```
+
+Why this matters:
+- It avoids duplicated maintenance for plural/gender variants like:
+  - `lettera / lettere`
+  - `buono / buon / buona / buone`
+
+The app also contains tiny heuristics (fallback only), but **aliases are preferred**.
+
+---
+
+## Local edits (overrides)
+
+Edits are stored in `localStorage` under keys like:
+
+- `llm.override.<pathId>.<movieId>.<cardId>`
+
+For word cards, the important editable field is:
+
+- `deMeaning` (German meaning)
+
+Export via the UI (“Export” button), resulting file:
+
+- `llm-overrides_<pathId>_<movieId>.json`
+
+Developers can merge exported overrides back into the repo as seed meanings.
+
+---
+
+## Repository layout (current)
+
+Top-level:
+- `README.md` – this file
+- `data/raw/` – raw subtitles (SRT). Not used by the web app directly.
+- `scripts/` – generator scripts (Step2, etc.)
+- `web/` – the static web app (served via a tiny HTTP server)
+
+`web/`:
+- `index.html` – loads React from CDN and `app.js`
+- `app.js` – main UI logic (no build step)
+- `styles.css` – themes + layout
+- `assets/` – images (pirate logo)
+- `paths/` – learning paths, each with:
+  - `manifest.json` (path metadata)
+  - `cards/` (generated and/or curated JSON files)
+
+Note on `/app`:
+- Older experiments used a separate scaffold (e.g., Vite).
+- Current “Way 1” deliberately keeps everything under `/web` to stay **static and minimal**.
+- You can delete `/app` if it exists and you are not using it.
+
+---
+
+## Step2 generator (offline)
+
+Use the Python generator to produce base cards:
+
+```powershell
+py .\scripts\step2-generate-cards.py `
+  --it "data/raw/<italian>.srt" `
+  --de "data/raw/<german>.srt" `
+  --out "web/paths/italian-with-harry/cards" `
+  --path-id "italian-with-harry" `
+  --movie-id "hp1" `
+  --max-minutes 15 `
+  --chapter-minutes 7 `
+  --merge-it-adjacent `
+  --merge-it-gap-ms 350 `
+  --de-pad-ms 250 `
+  --de-max-lines 6
+```
+
+Alignment philosophy:
+- prefer **duplication** over omission when mapping IT → DE ranges
+- monotonic DE scanning (no backward jumps)
+
+Known limitation:
+- Subtitle translations are not always 1:1 and may drift. This is acceptable for early learning; later you can refine card translations manually via overrides.
+
+---
+
+## Next ideas (planned)
+
+- Text-to-Speech (browser SpeechSynthesis) for IT/DE
+- Optional voice input (Web Speech API) where supported
+- Better morphological normalization (lemma detection) as a Python enrichment step
+
+
+---
+
+## Troubleshooting (common)
+
+### Debug says `words=0`
+This means `web/paths/<pathId>/cards/words.base.de.json` was loaded successfully, but the `cards` array inside it is empty (or missing).
+
+Check:
+- the file exists at the exact path (case + spelling)
+- it contains JSON like: `{ "cards": [ ... ] }`
+- Step2 generator was run with word/token extraction enabled and within the `--max-minutes` window
+
+### Debug says meanings `format=missing`
+The optional seed file `words.meanings.de.json` was not found at:
+
+- `web/paths/<pathId>/cards/words.meanings.de.json`
+
+This is optional; the app still works, but Word cards will have no initial “Meaning (DE)” until you add that file or edit via overrides.
