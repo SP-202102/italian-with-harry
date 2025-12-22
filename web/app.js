@@ -1,4 +1,4 @@
-// GH-AUTOVERSION: v0.1.6
+// GH-AUTOVERSION: v0.2.1
 const { useEffect, useMemo, useState } = React;
 
 const STUDY_MODES = [
@@ -20,10 +20,13 @@ const THEME_STORAGE_KEY = "llm.theme";
 
 const DEFAULT_PATH_ID = "italian-with-harry";
 
+// IMPORTANT: for now, cards JSON is generated for hp1 only.
+// Later we will generalize this so each movie has its own cards JSON.
+const CARDS_MOVIE_ID = "hp1";
+
 function applyTheme(themeId) {
   document.body.dataset.theme = themeId;
 }
-
 function loadSavedTheme() {
   try {
     const saved = localStorage.getItem(THEME_STORAGE_KEY);
@@ -31,206 +34,52 @@ function loadSavedTheme() {
   } catch {}
   return DEFAULT_THEME;
 }
-
 function saveTheme(themeId) {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, themeId);
   } catch {}
 }
 
-async function loadLearningPath(pathId) {
-  const response = await fetch(`./paths/${pathId}/manifest.json`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Failed to load learning path manifest: ${response.status} ${response.statusText}`);
-  }
+function downloadTextFile(filename, text, mime = "application/json") {
+  const blob = new Blob([text], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function fetchJson(path) {
+  const response = await fetch(path, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to fetch ${path}: ${response.status} ${response.statusText}`);
   return await response.json();
 }
 
-function parseSrtTime(timeString) {
-  const [hh, mm, ssMs] = timeString.split(":");
-  const [ss, ms] = ssMs.split(",");
-  return Number(hh) * 3600 + Number(mm) * 60 + Number(ss) + Number(ms) / 1000;
+async function loadLearningPath(pathId) {
+  return await fetchJson(`./paths/${pathId}/manifest.json`);
 }
-function formatHms(totalSeconds) {
-  const s = Math.max(0, Math.floor(totalSeconds));
-  const hh = String(Math.floor(s / 3600)).padStart(2, "0");
-  const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
-  const ss = String(s % 60).padStart(2, "0");
-  return `${hh}:${mm}:${ss}`;
-}
-function parseSrt(srtText) {
-  const normalized = srtText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-  const blocks = normalized.split(/\n\s*\n/);
-  const entries = [];
-  for (const block of blocks) {
-    const lines = block.split("\n").map((l) => l.trim()).filter(Boolean);
-    if (lines.length < 2) continue;
 
-    let timeLine = null;
-    let textLines = [];
-
-    if (lines[0].includes("-->")) {
-      timeLine = lines[0];
-      textLines = lines.slice(1);
-    } else {
-      timeLine = lines[1];
-      textLines = lines.slice(2);
-    }
-
-    const match = timeLine.match(/(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})/);
-    if (!match) continue;
-
-    const startSeconds = parseSrtTime(match[1]);
-    const endSeconds = parseSrtTime(match[2]);
-
-    const text = textLines
-      .map((l) => l.replace(/<[^>]+>/g, "").replace(/\{\\.*?\}/g, ""))
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .replace(/\[[^\]]+\]/g, "")
-      .replace(/♪/g, "")
-      .trim();
-
-    if (!text) continue;
-    entries.push({ startSeconds, endSeconds, text });
+async function tryLoadCards(pathId) {
+  // Returns { phrases: [], words: [], meta: {...} } or null if not found
+  try {
+    const phrases = await fetchJson(`./paths/${pathId}/cards/phrases.base.de.json`);
+    const words = await fetchJson(`./paths/${pathId}/cards/words.base.de.json`);
+    return {
+      meta: phrases.meta || words.meta || null,
+      phrases: phrases.cards || [],
+      words: words.cards || [],
+    };
+  } catch (e) {
+    // Not fatal. App can still run in "SRT-only" mode later.
+    return null;
   }
-  return entries;
 }
 
-function assignChapterId(seconds, chapterSizeSeconds) {
-  return Math.floor(seconds / chapterSizeSeconds) + 1;
-}
-function buildChapters(entries, chapterSizeSeconds) {
-  const maxEnd = Math.max(...entries.map((e) => e.endSeconds), 0);
-  const count = Math.max(1, Math.ceil(maxEnd / chapterSizeSeconds));
-  const chapters = [];
-  for (let i = 0; i < count; i++) {
-    const start = i * chapterSizeSeconds;
-    const end = Math.min((i + 1) * chapterSizeSeconds, maxEnd);
-    chapters.push({ id: i + 1, title: `Chapter ${i + 1}`, startHms: formatHms(start), endHms: formatHms(end) });
-  }
-  return chapters;
-}
-function buildPhraseCards(entries, chapterSizeSeconds) {
-  return entries.map((e, idx) => ({
-    id: `p_${idx}`,
-    chapterId: assignChapterId(e.startSeconds, chapterSizeSeconds),
-    type: "phrase",
-    frontIt: e.text,
-    backDe: "",
-    contextIt: e.text,
-    timestamp: formatHms(e.startSeconds),
-  }));
-}
-function isStopWordIt(token) {
-  const stop = new Set([
-    "che","e","di","a","da","in","un","una","il","lo","la","i","gli","le",
-    "mi","ti","si","ci","vi","non","per","con","su","ma","o","ora","poi",
-    "sono","sei","era","hai","ho","ha","abbiamo","avete","hanno","del","della","dei","delle"
-  ]);
-  return stop.has(token);
-}
-function buildWordCards(entries, chapterSizeSeconds, options) {
-  const minWordLength = options?.minWordLength ?? 3;
-  const maxWordCardsPerChapter = options?.maxWordCardsPerChapter ?? 120;
-  const tokenRegex = /[a-zàèéìòóù']+/gi;
-
-  const chapterWordCounts = new Map();
-
-  for (const e of entries) {
-    const chapterId = assignChapterId(e.startSeconds, chapterSizeSeconds);
-    if (!chapterWordCounts.has(chapterId)) chapterWordCounts.set(chapterId, new Map());
-    const map = chapterWordCounts.get(chapterId);
-
-    const tokens = (e.text.match(tokenRegex) ?? [])
-      .map((t) => t.toLowerCase().replace("’", "'"))
-      .filter((t) => t.length >= minWordLength && !isStopWordIt(t));
-
-    for (const t of tokens) map.set(t, (map.get(t) ?? 0) + 1);
-  }
-
-  const cards = [];
-  for (const [chapterId, map] of chapterWordCounts.entries()) {
-    const sorted = [...map.entries()].sort((a, b) => b[1] - a[1]).slice(0, maxWordCardsPerChapter);
-    for (const [token, count] of sorted) {
-      cards.push({
-        id: `w_${chapterId}_${token}`,
-        chapterId,
-        type: "word",
-        frontIt: token,
-        backDe: "",
-        contextIt: `freq: ${count}`,
-        timestamp: "",
-      });
-    }
-  }
-  return cards;
-}
-function buildCardsByMode(entries, chapterSizeSeconds, mode) {
-  const phraseCards = buildPhraseCards(entries, chapterSizeSeconds);
-  const wordCards = buildWordCards(entries, chapterSizeSeconds, { minWordLength: 3, maxWordCardsPerChapter: 120 });
-  if (mode === "phrases") return phraseCards;
-  if (mode === "words") return wordCards;
-  return [...phraseCards, ...wordCards];
-}
-function shuffleArray(array) {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-function Flashcards({ cards, shuffleEnabled }) {
-  const [index, setIndex] = useState(0);
-  const [flipped, setFlipped] = useState(false);
-  const [deck, setDeck] = useState(cards);
-
-  useEffect(() => {
-    const nextDeck = shuffleEnabled ? shuffleArray(cards) : cards;
-    setDeck(nextDeck);
-    setIndex(0);
-    setFlipped(false);
-  }, [cards, shuffleEnabled]);
-
-  const current = deck[index];
-
-  function next() { setFlipped(false); setIndex((i) => (i + 1 < deck.length ? i + 1 : 0)); }
-  function prev() { setFlipped(false); setIndex((i) => (i - 1 >= 0 ? i - 1 : deck.length - 1)); }
-  function reshuffle() { setDeck(shuffleArray(deck)); setIndex(0); setFlipped(false); }
-
-  if (!current) return <p>No cards in this chapter.</p>;
-
-  return (
-    <div className="cards">
-      <div className="card" onClick={() => setFlipped((v) => !v)} role="button" tabIndex={0}>
-        <div className="cardTop">
-          <span className="badge">{current.type}</span>
-          <span className="timestamp">{current.timestamp}</span>
-        </div>
-
-        {!flipped ? (
-          <div className="cardText">
-            <div className="front">{current.frontIt}</div>
-            <div className="hint">Click to flip</div>
-          </div>
-        ) : (
-          <div className="cardText">
-            <div className="back">{current.backDe || "(German empty)"}</div>
-            <div className="context">{current.contextIt}</div>
-          </div>
-        )}
-      </div>
-
-      <div className="nav">
-        <button onClick={prev}>◀</button>
-        <div>{deck.length ? `${index + 1} / ${deck.length}` : "0 / 0"}</div>
-        <button onClick={next}>▶</button>
-        <button onClick={reshuffle} disabled={!shuffleEnabled}>Shuffle</button>
-      </div>
-    </div>
-  );
+function chapterIdFromSeconds(seconds, chapterMinutes) {
+  return Math.floor(seconds / (chapterMinutes * 60)) + 1;
 }
 
 function ThemeMenu({ themeId, onChangeTheme, isOpen, onClose }) {
@@ -263,17 +112,106 @@ function ThemeMenu({ themeId, onChangeTheme, isOpen, onClose }) {
   );
 }
 
+function makeOverrideKey(pathId, movieId, cardId) {
+  return `llm.override.${pathId}.${movieId}.${cardId}`;
+}
+
+function loadOverride(pathId, movieId, cardId) {
+  const key = makeOverrideKey(pathId, movieId, cardId);
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function saveOverride(pathId, movieId, cardId, patch) {
+  const key = makeOverrideKey(pathId, movieId, cardId);
+  try {
+    localStorage.setItem(key, JSON.stringify(patch));
+  } catch {}
+}
+
+function exportOverrides(pathId, movieId) {
+  const prefix = `llm.override.${pathId}.${movieId}.`;
+  const overrides = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k || !k.startsWith(prefix)) continue;
+      const cardId = k.substring(prefix.length);
+      const raw = localStorage.getItem(k);
+      if (!raw) continue;
+      overrides[cardId] = JSON.parse(raw);
+    }
+  } catch {}
+  const payload = {
+    autoversion: "v0.2.1",
+    pathId,
+    movieId,
+    exportedAtUtc: new Date().toISOString(),
+    overrides,
+  };
+  downloadTextFile(`llm-overrides_${pathId}_${movieId}.json`, JSON.stringify(payload, null, 2));
+}
+
+function Flashcard({ card, pathId, movieId, onEdit }) {
+  const [flipped, setFlipped] = useState(false);
+
+  const isPhrase = card.type === "phrase";
+
+  return (
+    <div className="card" onClick={() => setFlipped((v) => !v)} role="button" tabIndex={0}>
+      <div className="cardTop">
+        <span className="badge">{card.type}</span>
+        <span className="timestamp">{card.timestamp || ""}</span>
+      </div>
+
+      {!flipped ? (
+        <div className="cardText">
+          <div className="front">{card.it}</div>
+          <div className="hint">Click to flip</div>
+        </div>
+      ) : (
+        <div className="cardText" onClick={(e) => e.stopPropagation()}>
+          <div className="back">
+            <textarea
+              className="editBox"
+              rows={isPhrase ? 3 : 2}
+              value={card.de || ""}
+              placeholder="German translation / meaning (editable)"
+              onChange={(e) => onEdit(card.id, e.target.value)}
+            />
+          </div>
+
+          {card.type === "word" && (
+            <div className="context">
+              <div><b>freq:</b> {card.freq ?? ""}</div>
+              {(card.examples || []).map((ex, idx) => (
+                <div key={idx} style={{ marginTop: "8px" }}>
+                  <div><b>{ex.timestamp}</b> — {ex.it}</div>
+                  <div style={{ opacity: 0.9 }}>{ex.de}</div>
+                </div>
+              ))}
+              <div style={{ marginTop: "8px", opacity: 0.85 }}>
+                <b>word info (placeholder):</b>{" "}
+                POS={card.wordInfo?.pos || "?"}, lemma={card.wordInfo?.lemma || "?"}, infinitive={card.wordInfo?.infinitive || "?"}
+              </div>
+            </div>
+          )}
+
+          {card.type === "phrase" && (
+            <div className="context">{card.it}</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function App() {
-  const [learningPath, setLearningPath] = useState(null);
-  const [movieId, setMovieId] = useState("");
-  const [chapterMinutes, setChapterMinutes] = useState(7);
-  const [studyMode, setStudyMode] = useState("phrases");
-  const [shuffleEnabled, setShuffleEnabled] = useState(false);
-
-  const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [errorText, setErrorText] = useState("");
-
   // theme
   const [themeId, setThemeId] = useState(loadSavedTheme());
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
@@ -283,8 +221,20 @@ function App() {
     saveTheme(themeId);
   }, [themeId]);
 
-  const chapterSizeSeconds = chapterMinutes * 60;
+  // learning path + cards
+  const [learningPath, setLearningPath] = useState(null);
+  const [cardsBundle, setCardsBundle] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
+  // ui
+  const [chapterMinutes, setChapterMinutes] = useState(7);
+  const [studyMode, setStudyMode] = useState("phrases");
+  const [shuffleEnabled, setShuffleEnabled] = useState(false);
+  const [selectedChapterId, setSelectedChapterId] = useState(1);
+  const [index, setIndex] = useState(0);
+
+  // Load path + cards
   useEffect(() => {
     let cancelled = false;
     async function init() {
@@ -294,8 +244,10 @@ function App() {
         const path = await loadLearningPath(DEFAULT_PATH_ID);
         if (cancelled) return;
         setLearningPath(path);
-        const first = (path.items ?? [])[0];
-        if (first) setMovieId(first.id);
+
+        const bundle = await tryLoadCards(DEFAULT_PATH_ID);
+        if (cancelled) return;
+        setCardsBundle(bundle); // can be null
       } catch (e) {
         if (!cancelled) setErrorText(String(e?.message ?? e));
       } finally {
@@ -306,38 +258,80 @@ function App() {
     return () => { cancelled = true; };
   }, []);
 
+  // Build cards list for current mode
+  const baseCards = useMemo(() => {
+    if (!cardsBundle) return [];
+    const phrases = cardsBundle.phrases || [];
+    const words = cardsBundle.words || [];
+    if (studyMode === "phrases") return phrases;
+    if (studyMode === "words") return words;
+    return [...phrases, ...words];
+  }, [cardsBundle, studyMode]);
+
+  // Apply overrides (DE edits)
+  const cardsWithOverrides = useMemo(() => {
+    if (!learningPath) return baseCards;
+
+    return baseCards.map((c) => {
+      const override = loadOverride(learningPath.pathId, CARDS_MOVIE_ID, c.id);
+      if (!override) return c;
+      return { ...c, de: override.de ?? c.de };
+    });
+  }, [baseCards, learningPath]);
+
+  // Chapters list (derived from cards)
+  const chapters = useMemo(() => {
+    // derive max chapterId from cards
+    const maxCh = Math.max(1, ...cardsWithOverrides.map((c) => c.chapterId || 1));
+    const items = [];
+    for (let i = 1; i <= maxCh; i++) items.push({ id: i, title: `Chapter ${i}` });
+    return items;
+  }, [cardsWithOverrides]);
+
   useEffect(() => {
-    if (!learningPath) return;
-    const movie = (learningPath.items ?? []).find((m) => m.id === movieId);
-    if (!movie) return;
+    setSelectedChapterId(1);
+    setIndex(0);
+  }, [studyMode, chapterMinutes]);
 
-    let cancelled = false;
-    async function loadSrt() {
-      setLoading(true);
-      setErrorText("");
-      try {
-        const response = await fetch(`./paths/${learningPath.pathId}/${movie.path}`, { cache: "no-store" });
-        if (!response.ok) throw new Error(`Failed to fetch SRT: ${response.status} ${response.statusText}`);
-        const text = await response.text();
-        const parsed = parseSrt(text);
-        if (!cancelled) setEntries(parsed);
-      } catch (e) {
-        if (!cancelled) setErrorText(String(e?.message ?? e));
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
+  // Filter to selected chapter
+  const chapterCards = useMemo(() => {
+    return cardsWithOverrides.filter((c) => (c.chapterId || 1) === selectedChapterId);
+  }, [cardsWithOverrides, selectedChapterId]);
+
+  // Shuffle deck
+  const deck = useMemo(() => {
+    const arr = [...chapterCards];
+    if (!shuffleEnabled) return arr;
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    loadSrt();
-    return () => { cancelled = true; };
-  }, [learningPath, movieId]);
+    return arr;
+  }, [chapterCards, shuffleEnabled]);
 
-  const chapters = useMemo(() => buildChapters(entries, chapterSizeSeconds), [entries, chapterSizeSeconds]);
-  const cards = useMemo(() => buildCardsByMode(entries, chapterSizeSeconds, studyMode), [entries, chapterSizeSeconds, studyMode]);
+  useEffect(() => {
+    setIndex(0);
+  }, [selectedChapterId, shuffleEnabled]);
 
-  const [selectedChapterId, setSelectedChapterId] = useState(1);
-  useEffect(() => setSelectedChapterId(1), [movieId, chapterMinutes, studyMode]);
+  const current = deck[index];
 
-  const chapterCards = useMemo(() => cards.filter((c) => c.chapterId === selectedChapterId), [cards, selectedChapterId]);
+  function onEdit(cardId, newDe) {
+    if (!learningPath) return;
+    saveOverride(learningPath.pathId, CARDS_MOVIE_ID, cardId, { de: newDe });
+    // Update current state immediately by re-triggering memo via a tiny hack:
+    // we just force a state update by setting index to itself.
+    setIndex((i) => i);
+  }
+
+  function next() {
+    if (!deck.length) return;
+    setIndex((i) => (i + 1 < deck.length ? i + 1 : 0));
+  }
+
+  function prev() {
+    if (!deck.length) return;
+    setIndex((i) => (i - 1 >= 0 ? i - 1 : deck.length - 1));
+  }
 
   return (
     <div className="container">
@@ -347,13 +341,6 @@ function App() {
       </div>
 
       <div className="controls">
-        <label>
-          Movie:
-          <select value={movieId} onChange={(e) => setMovieId(e.target.value)} disabled={!learningPath}>
-            {(learningPath?.items ?? []).map((m) => <option key={m.id} value={m.id}>{m.title}</option>)}
-          </select>
-        </label>
-
         <label>
           Chapter minutes:
           <select value={chapterMinutes} onChange={(e) => setChapterMinutes(Number(e.target.value))}>
@@ -371,7 +358,7 @@ function App() {
         <label>
           Chapter:
           <select value={selectedChapterId} onChange={(e) => setSelectedChapterId(Number(e.target.value))}>
-            {chapters.map((c) => <option key={c.id} value={c.id}>{c.title} ({c.startHms}-{c.endHms})</option>)}
+            {chapters.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
           </select>
         </label>
 
@@ -379,26 +366,39 @@ function App() {
           <input type="checkbox" checked={shuffleEnabled} onChange={(e) => setShuffleEnabled(e.target.checked)} />
           Shuffle
         </label>
+
+        <button onClick={() => learningPath && exportOverrides(learningPath.pathId, CARDS_MOVIE_ID)} disabled={!learningPath}>
+          Export overrides
+        </button>
       </div>
 
       {loading && <p>Loading...</p>}
       {errorText && <p className="error">Error: {errorText}</p>}
 
-      {!loading && !errorText && entries.length > 0 && (
+      {!loading && !errorText && cardsBundle === null && (
+        <p className="error">
+          Cards JSON not found under <code>web/paths/{DEFAULT_PATH_ID}/cards/</code>.
+          Generate them with Step2 and commit them.
+        </p>
+      )}
+
+      {!loading && !errorText && current && (
         <>
           <div className="meta">
-            <span>Subtitle lines: {entries.length}</span>
-            <span>Chapters: {chapters.length}</span>
-            <span>Cards (this chapter): {chapterCards.length}</span>
+            <span>Cards in chapter: {deck.length}</span>
+            <span>{deck.length ? `${index + 1} / ${deck.length}` : "0 / 0"}</span>
           </div>
 
-          <Flashcards cards={chapterCards} shuffleEnabled={shuffleEnabled} />
+          <Flashcard card={current} pathId={learningPath?.pathId} movieId={CARDS_MOVIE_ID} onEdit={onEdit} />
+
+          <div className="nav">
+            <button onClick={prev}>◀</button>
+            <button onClick={next}>▶</button>
+          </div>
         </>
       )}
 
-      <p className="footer">
-        Tip: click the pirate logo to switch themes.
-      </p>
+      <p className="footer">Tip: click the pirate logo to switch themes.</p>
 
       <img
         className="pirateLogo clickable"

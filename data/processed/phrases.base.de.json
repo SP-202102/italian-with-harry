@@ -1,0 +1,1662 @@
+{
+  "meta": {
+    "autoversion": "v0.2.0-sample",
+    "pathId": "italian-with-harry",
+    "movieId": "hp1",
+    "window": {
+      "start": 0,
+      "end": 840,
+      "endHms": "00:14:00"
+    },
+    "chapterMinutes": 7,
+    "counts": {
+      "phrases": 117,
+      "words": 160
+    },
+    "notes": [
+      "DE text for phrases is aligned from DE SRT by timestamp overlap/nearest.",
+      "Word cards do not have direct DE 'meaning' yet; use examples or add overrides later.",
+      "POS/lemma/infinitive fields are placeholders for a later NLP step."
+    ]
+  },
+  "cards": [
+    {
+      "id": "p_0001",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 82.082,
+      "end": 84.952,
+      "timestamp": "00:01:22",
+      "it": "Dovevo immaginare che l'avrei trovata qui...",
+      "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0002",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 85.085,
+      "end": 87.287,
+      "timestamp": "00:01:25",
+      "it": "Professoressa McGonagall...",
+      "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0003",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 98.232,
+      "end": 101.268,
+      "timestamp": "00:01:38",
+      "it": "Buona sera professor Silente.",
+      "de": "Guten Abend, Professor Dumbledore.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0004",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 103.937,
+      "end": 107.474,
+      "timestamp": "00:01:43",
+      "it": "Sono vere le voci... Albus?",
+      "de": "Darf man den Gerüchten trauen, Albus?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0005",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 105.772,
+      "end": 109.71,
+      "timestamp": "00:01:45",
+      "it": "Temo di si professoressa...",
+      "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0006",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 109.776,
+      "end": 112.646,
+      "timestamp": "00:01:49",
+      "it": "Le buone e le cattive.",
+      "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0007",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 112.746,
+      "end": 114.147,
+      "timestamp": "00:01:52",
+      "it": "E il bimbo?",
+      "de": "- Was macht der Junge? - Hagrid bringt ihn her.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0008",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 114.281,
+      "end": 115.916,
+      "timestamp": "00:01:54",
+      "it": "Hagrid lo porterà qui",
+      "de": "- Was macht der Junge? - Hagrid bringt ihn her.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0009",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 116.049,
+      "end": 118.552,
+      "timestamp": "00:01:56",
+      "it": "Lei trova saggio affidare ad Hagrid",
+      "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0010",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 118.652,
+      "end": 120.721,
+      "timestamp": "00:01:58",
+      "it": "un compito importante come questo?",
+      "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0011",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 120.787,
+      "end": 125.092,
+      "timestamp": "00:02:00",
+      "it": "Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+      "de": "Ach, Professor, Hagrid würde ich mein Leben anvertrauen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0012",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 144.344,
+      "end": 146.146,
+      "timestamp": "00:02:24",
+      "it": "Professor Silente, Signore",
+      "de": "Professor Dumbledore, Sir. Professor McGonagall.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0013",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 146.28,
+      "end": 148.482,
+      "timestamp": "00:02:26",
+      "it": "Professoressa McGonagall",
+      "de": "Professor Dumbledore, Sir. Professor McGonagall.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0014",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 148.515,
+      "end": 150.851,
+      "timestamp": "00:02:28",
+      "it": "Nessun problema, spero, Hagrid?",
+      "de": "- Und es gab keine Probleme, Hagrid? - Nein, Sir.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0015",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 150.984,
+      "end": 152.619,
+      "timestamp": "00:02:30",
+      "it": "No Signore!",
+      "de": "- Und es gab keine Probleme, Hagrid? - Nein, Sir.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0016",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 152.753,
+      "end": 156.29,
+      "timestamp": "00:02:32",
+      "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+      "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0017",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 157.958,
+      "end": 160.027,
+      "timestamp": "00:02:37",
+      "it": "Cerchi di non svegliarlo...",
+      "de": "Wecken Sie ihn nicht auf.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0018",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 161.128,
+      "end": 164.331,
+      "timestamp": "00:02:41",
+      "it": "Eccolo qua!",
+      "de": "So, hier.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0019",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 168.368,
+      "end": 170.037,
+      "timestamp": "00:02:48",
+      "it": "Albus...",
+      "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0020",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 169.97,
+      "end": 173.607,
+      "timestamp": "00:02:49",
+      "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
+      "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0021",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 173.707,
+      "end": 179.012,
+      "timestamp": "00:02:53",
+      "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+      "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0022",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 179.146,
+      "end": 183.183,
+      "timestamp": "00:02:59",
+      "it": "Dico sul serio... Sono i soli parenti che ha!",
+      "de": "- Sie sind wirklich... - Es sind seine einzigen Verwandten.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0023",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 183.45,
+      "end": 185.185,
+      "timestamp": "00:03:03",
+      "it": "Questo piccino diventerà famoso...",
+      "de": "Er wird berühmt werden. Jedes Kind in unserer Welt wird seinen Namen kennen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0024",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 185.319,
+      "end": 188.622,
+      "timestamp": "00:03:05",
+      "it": "Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome.",
+      "de": "Er wird berühmt werden. Jedes Kind in unserer Welt wird seinen Namen kennen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0025",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 188.689,
+      "end": 190.224,
+      "timestamp": "00:03:08",
+      "it": "Esatto!",
+      "de": "Genau.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0026",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 190.357,
+      "end": 193.393,
+      "timestamp": "00:03:10",
+      "it": "Sarà molto meglio per lui crescere lontano da tutto questo.",
+      "de": "Es ist besser für ihn, wenn er weit weg von all dem aufwächst.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0027",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 197.064,
+      "end": 199.499,
+      "timestamp": "00:03:17",
+      "it": "Finché non sarà pronto...",
+      "de": "Bis er eines Tages so weit ist.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0028",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 211.845,
+      "end": 216.85,
+      "timestamp": "00:03:31",
+      "it": "Via, Via Hagrid... Questo non è un vero addio dopo tutto.",
+      "de": "Na, na, Hagrid. Das hier bedeutet keineswegs Lebewohl.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0029",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 229.263,
+      "end": 234.034,
+      "timestamp": "00:03:49",
+      "it": "Buona fortuna... Harry Potter.",
+      "de": "Harry Potter.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0030",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 240.541,
+      "end": 245.112,
+      "timestamp": "00:04:00",
+      "it": "HARRY POTTER E LA PIETRA FILOSOFALE",
+      "de": "HARRY POTTER UND DER STEIN DER WEISEN",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0031",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 245.112,
+      "end": 251.084,
+      "timestamp": "00:04:05",
+      "it": "LoS PiRaTaS 2002 *** by Kurgan ***",
+      "de": "Aufstehen! Steh auf!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0032",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 251.451,
+      "end": 253.053,
+      "timestamp": "00:04:11",
+      "it": "Alzati!",
+      "de": "Aufstehen! Steh auf!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0033",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 253.253,
+      "end": 254.755,
+      "timestamp": "00:04:13",
+      "it": "In piedi!",
+      "de": "Aufstehen! Steh auf!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0034",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 257.09,
+      "end": 258.725,
+      "timestamp": "00:04:17",
+      "it": "Ora!",
+      "de": "Sofort!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0035",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 272.573,
+      "end": 276.443,
+      "timestamp": "00:04:32",
+      "it": "Alzati cugino, stiamo andando allo zoo.",
+      "de": "Aufwachen, Cousin! Wir fahren in den Zoo!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0036",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 287.654,
+      "end": 290.824,
+      "timestamp": "00:04:47",
+      "it": "Ecco il bimbo che compie gli anni...",
+      "de": "- Da kommt ja unser Geburtstagskind. - Herzlichen Glückwunsch, mein Sohn.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0037",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 290.958,
+      "end": 292.96,
+      "timestamp": "00:04:50",
+      "it": "Buon compleanno figliolo!",
+      "de": "- Da kommt ja unser Geburtstagskind. - Herzlichen Glückwunsch, mein Sohn.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0038",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 293.994,
+      "end": 295.762,
+      "timestamp": "00:04:53",
+      "it": "Non hai ancora preparato la colazione...",
+      "de": "Du machst das Frühstück. Und lass ja nichts anbrennen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0039",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 295.896,
+      "end": 297.264,
+      "timestamp": "00:04:55",
+      "it": "e cerca di non bruciare nulla!",
+      "de": "Du machst das Frühstück. Und lass ja nichts anbrennen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0040",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 297.464,
+      "end": 298.732,
+      "timestamp": "00:04:57",
+      "it": "Si, zia Petunia.",
+      "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0041",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 298.932,
+      "end": 302.436,
+      "timestamp": "00:04:58",
+      "it": "Voglio che tutto sia perfetto.",
+      "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0042",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 302.603,
+      "end": 305.772,
+      "timestamp": "00:05:02",
+      "it": "Nel giorno speciale del mio Dudley.",
+      "de": "wenn mein Dudley seinen besonderen Tag hat!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0043",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 305.906,
+      "end": 307.274,
+      "timestamp": "00:05:05",
+      "it": "Sbrigati!",
+      "de": "- Los, bring mir meinen Kaffee, Junge! - Ja, Onkel Vernon.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0044",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 307.341,
+      "end": 308.575,
+      "timestamp": "00:05:07",
+      "it": "Porta il mio caffè ragazzo!",
+      "de": "- Los, bring mir meinen Kaffee, Junge! - Ja, Onkel Vernon.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0045",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 308.642,
+      "end": 310.31,
+      "timestamp": "00:05:08",
+      "it": "Si zio Vernon.",
+      "de": "- Los, bring mir meinen Kaffee, Junge! - Ja, Onkel Vernon.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0046",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 311.845,
+      "end": 314.448,
+      "timestamp": "00:05:11",
+      "it": "Non sono magnifici tesoro?",
+      "de": "Sind die nicht wunderbar, Schätzchen?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0047",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 317.15,
+      "end": 318.585,
+      "timestamp": "00:05:17",
+      "it": "Quanti sono?",
+      "de": "- Wie viele sollen das sein? - 36. Hab sie selbst gezählt.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0048",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 318.752,
+      "end": 319.786,
+      "timestamp": "00:05:18",
+      "it": "36. Li ho contati io stesso...",
+      "de": "- Wie viele sollen das sein? - 36. Hab sie selbst gezählt.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0049",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 319.853,
+      "end": 324.091,
+      "timestamp": "00:05:19",
+      "it": "L'anno scorso erano 37!",
+      "de": "36?! Aber letztes Jahr waren es 37!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0050",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 324.157,
+      "end": 326.86,
+      "timestamp": "00:05:24",
+      "it": "Alcuni sono più grandi dell'anno scorso...",
+      "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0051",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 326.927,
+      "end": 329.029,
+      "timestamp": "00:05:26",
+      "it": "Non m'importa quanto sono grandi!",
+      "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0052",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 329.129,
+      "end": 330.531,
+      "timestamp": "00:05:29",
+      "it": "Ecco cosa faremo...",
+      "de": "Ich sag dir, was wir machen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0053",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 330.631,
+      "end": 334.034,
+      "timestamp": "00:05:30",
+      "it": "Compreremo 2 nuovi regali.",
+      "de": "Wir kaufen dir noch 2 Geschenke. Was sagst du, Spätzchen?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0054",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 346.313,
+      "end": 348.515,
+      "timestamp": "00:05:46",
+      "it": "Ti avverto ragazzo...",
+      "de": "Ich warne dich, Junge.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0055",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 348.649,
+      "end": 352.319,
+      "timestamp": "00:05:48",
+      "it": "Niente d'insolito... Niente.",
+      "de": "Keine von deinen Albernheiten,",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0056",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 352.452,
+      "end": 355.889,
+      "timestamp": "00:05:52",
+      "it": "O non mangerai per una settimana.",
+      "de": "sonst bekommst du 1 Woche lang nichts zu essen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0057",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 356.023,
+      "end": 357.891,
+      "timestamp": "00:05:56",
+      "it": "Capito?",
+      "de": "Steig ein.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0058",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 364.898,
+      "end": 367.201,
+      "timestamp": "00:06:04",
+      "it": "Fallo muovere!",
+      "de": "Die soll mal was machen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0059",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 369.87,
+      "end": 371.705,
+      "timestamp": "00:06:09",
+      "it": "Muoviti!",
+      "de": "Mach was!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0060",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 371.839,
+      "end": 372.639,
+      "timestamp": "00:06:11",
+      "it": "Muoviti!!",
+      "de": "- Beweg dich! - Die Schlange schläft.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0061",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 372.84,
+      "end": 374.474,
+      "timestamp": "00:06:12",
+      "it": "Sta dormendo!",
+      "de": "- Beweg dich! - Die Schlange schläft.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0062",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 374.641,
+      "end": 377.211,
+      "timestamp": "00:06:14",
+      "it": "E' noioso!",
+      "de": "Die ist voll langweilig.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0063",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 379.68,
+      "end": 381.048,
+      "timestamp": "00:06:19",
+      "it": "Mi scuso per lui...",
+      "de": "Tut mir echt Leid.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0064",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 381.181,
+      "end": 382.249,
+      "timestamp": "00:06:21",
+      "it": "Non capisce cosa vuol dire...",
+      "de": "Er hat keine Ahnung, was es heißt, daliegen zu müssen",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0065",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 382.382,
+      "end": 385.419,
+      "timestamp": "00:06:22",
+      "it": "starsene là, giorno dopo giorno.",
+      "de": "Er hat keine Ahnung, was es heißt, daliegen zu müssen",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0066",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 385.519,
+      "end": 389.423,
+      "timestamp": "00:06:25",
+      "it": "Guardando le facce disgustate della gente che ti passa accanto.",
+      "de": "und die Leute zu beobachten, wie sie ihre Fratzen an die Scheibe drücken.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0067",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 392.025,
+      "end": 394.695,
+      "timestamp": "00:06:32",
+      "it": "Puoi capirmi!",
+      "de": "Verstehst du mich etwa?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0068",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 397.064,
+      "end": 401.602,
+      "timestamp": "00:06:37",
+      "it": "Non ho mai parlato a un serpente prima.",
+      "de": "Na ja, ich hab noch nie mit 'ner Schlange gesprochen.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0069",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 401.735,
+      "end": 406.74,
+      "timestamp": "00:06:41",
+      "it": "Parli di frequente alle persone?",
+      "de": "Ich meine, redest du oft mit Leuten?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0070",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 408.375,
+      "end": 410.611,
+      "timestamp": "00:06:48",
+      "it": "Tu sei della Birmania, vero?",
+      "de": "Du kommst aus Burma, oder? War es schön da?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0071",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 410.744,
+      "end": 414.748,
+      "timestamp": "00:06:50",
+      "it": "Era bello lì? Ti manca la tua famiglia?",
+      "de": "Fehlt dir deine Familie?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0072",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 415.282,
+      "end": 416.95,
+      "timestamp": "00:06:55",
+      "it": "NATO IN CATTIVITA'",
+      "de": "Im Käfig aufgezogen",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0073",
+      "type": "phrase",
+      "chapterId": 1,
+      "start": 417.184,
+      "end": 420.521,
+      "timestamp": "00:06:57",
+      "it": "Capisco... E' così anche per me.",
+      "de": "Ah ja. Geht mir genauso. Ich kenne meine Eltern auch nicht.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0074",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 420.587,
+      "end": 422.356,
+      "timestamp": "00:07:00",
+      "it": "Non ho mai conosciuto i miei genitori.",
+      "de": "Ah ja. Geht mir genauso. Ich kenne meine Eltern auch nicht.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0075",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 422.456,
+      "end": 423.957,
+      "timestamp": "00:07:02",
+      "it": "Papà, vieni!",
+      "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0076",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 424.124,
+      "end": 426.727,
+      "timestamp": "00:07:04",
+      "it": "Non crederai a quello che il serpente sta facendo!",
+      "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0077",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 450.317,
+      "end": 452.553,
+      "timestamp": "00:07:30",
+      "it": "Grazie.",
+      "de": "Danke sehr.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0078",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 452.619,
+      "end": 454.555,
+      "timestamp": "00:07:32",
+      "it": "In qualunque momento...",
+      "de": "Kein Thema.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0079",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 457.391,
+      "end": 459.626,
+      "timestamp": "00:07:37",
+      "it": "Il Serpente!",
+      "de": "Eine Schlange!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0080",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 474.842,
+      "end": 477.244,
+      "timestamp": "00:07:54",
+      "it": "Mamma, aiuto!",
+      "de": "Mami! Mami! Hilf mir!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0081",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 478.278,
+      "end": 480.147,
+      "timestamp": "00:07:58",
+      "it": "Il mio bambino...",
+      "de": "Mein Schätzchen! Wie bist du denn da reingeraten?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0082",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 480.581,
+      "end": 482.249,
+      "timestamp": "00:08:00",
+      "it": "Come sei finito li dentro?",
+      "de": "Mein Schätzchen! Wie bist du denn da reingeraten?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0083",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 498.665,
+      "end": 500.267,
+      "timestamp": "00:08:18",
+      "it": "Cosa è successo?",
+      "de": "- Was ist passiert? - Ich hab keine Ahnung!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0084",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 500.367,
+      "end": 501.969,
+      "timestamp": "00:08:20",
+      "it": "Giuro che non lo so!",
+      "de": "- Was ist passiert? - Ich hab keine Ahnung!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0085",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 502.102,
+      "end": 505.706,
+      "timestamp": "00:08:22",
+      "it": "Il vetro è scomparso... come per magia!",
+      "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0086",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 510.21,
+      "end": 513.78,
+      "timestamp": "00:08:30",
+      "it": "Non esistono cose come la magia!",
+      "de": "Es gibt keine Zauberei.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0087",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 530.631,
+      "end": 535.002,
+      "timestamp": "00:08:50",
+      "it": "SIGNOR HARRY POTTER RIPOSTIGLIO DEL SOTTOSCALA...",
+      "de": "MR. H. POTTER Im Schrank unter der Treppe",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0088",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 550.417,
+      "end": 552.92,
+      "timestamp": "00:09:10",
+      "it": "Oh...Margie sta male, le aringhe erano guaste!",
+      "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0089",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 553.187,
+      "end": 556.69,
+      "timestamp": "00:09:13",
+      "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
+      "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0090",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 556.89,
+      "end": 559.726,
+      "timestamp": "00:09:16",
+      "it": "Tua? E chi mai ti scriverebbe?",
+      "de": "Dir? Wer schreibt dir denn schon?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0091",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 590.591,
+      "end": 594.795,
+      "timestamp": "00:09:50",
+      "it": "Niente più posta attraverso questa buca delle lettere!",
+      "de": "Durch diesen Briefschlitz kommt keine Post mehr!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0092",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 607.14,
+      "end": 609.042,
+      "timestamp": "00:10:07",
+      "it": "Buona giornata in ufficio caro.",
+      "de": "Einen schönen Tag im Büro, Schatz.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0093",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 612.646,
+      "end": 614.915,
+      "timestamp": "00:10:12",
+      "it": "Shoo, Via!",
+      "de": "Kusch! Los.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0094",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 640.474,
+      "end": 643.644,
+      "timestamp": "00:10:40",
+      "it": "Bel giorno la domenica!",
+      "de": "Ein wunderschöner Tag, der Sonntag.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0095",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 643.81,
+      "end": 646.28,
+      "timestamp": "00:10:43",
+      "it": "A mio parere il migliore di tutti.",
+      "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0096",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 646.413,
+      "end": 648.782,
+      "timestamp": "00:10:46",
+      "it": "Sai perché Dudley?",
+      "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0097",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 648.916,
+      "end": 650.617,
+      "timestamp": "00:10:48",
+      "it": "Perché non c'è posta la domenica?",
+      "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0098",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 650.684,
+      "end": 652.619,
+      "timestamp": "00:10:50",
+      "it": "Ben detto Harry.",
+      "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0099",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 653.287,
+      "end": 655.155,
+      "timestamp": "00:10:53",
+      "it": "Non c'è posta la domenica!",
+      "de": "Keine Post am Sonntag.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0100",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 657.457,
+      "end": 660.427,
+      "timestamp": "00:10:57",
+      "it": "Oggi nessuna maledetta lettera.",
+      "de": "Heute mal keine verflixten Briefe. Oh nein!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0101",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 660.494,
+      "end": 665.799,
+      "timestamp": "00:11:00",
+      "it": "Nossignore! Non una sola dannatissima lettera!",
+      "de": "Nicht ein einziger lumpiger Brief! Nicht einer!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0102",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 675.142,
+      "end": 679.279,
+      "timestamp": "00:11:15",
+      "it": "Nossignore, neanche una schifosa miserabile...",
+      "de": "Oh nein! Nicht ein winziger, erbärm...",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0103",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 707.174,
+      "end": 711.745,
+      "timestamp": "00:11:47",
+      "it": "Dammi quella lettera",
+      "de": "Gib den her! Gib mir den Brief!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0104",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 714.014,
+      "end": 716.216,
+      "timestamp": "00:11:54",
+      "it": "Lasciami!",
+      "de": "Loslassen!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0105",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 719.987,
+      "end": 723.857,
+      "timestamp": "00:11:59",
+      "it": "Le lettere sono mie!",
+      "de": "Die Briefe gehören mir! Lass mich sofort los!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0106",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 724.157,
+      "end": 727.861,
+      "timestamp": "00:12:04",
+      "it": "Ora basta! Ce ne andiamo lontano...",
+      "de": "Jetzt reicht's! Wir fahren weg!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0107",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 728.095,
+      "end": 731.532,
+      "timestamp": "00:12:08",
+      "it": "molto lontano... dove non possono trovarci!",
+      "de": "Weit weg! Wo die uns nicht finden!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0108",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 731.932,
+      "end": 734.168,
+      "timestamp": "00:12:11",
+      "it": "Papà è impazzito, non è vero?",
+      "de": "Jetzt ist Dad verrückt geworden, oder?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0109",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 758.592,
+      "end": 762.196,
+      "timestamp": "00:12:38",
+      "it": "BUON COMPLEANNO",
+      "de": "",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0110",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 769.803,
+      "end": 771.738,
+      "timestamp": "00:12:49",
+      "it": "Esprimi un desiderio, Harry.",
+      "de": "Wünsch dir was, Harry.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0111",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 788.322,
+      "end": 789.723,
+      "timestamp": "00:13:08",
+      "it": "Chi va la?",
+      "de": "Wer ist da?",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0112",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 802.503,
+      "end": 804.238,
+      "timestamp": "00:13:22",
+      "it": "Scusate tanto.",
+      "de": "Tut mir echt Leid.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0113",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 812.012,
+      "end": 815.983,
+      "timestamp": "00:13:32",
+      "it": "Se ne vada immediatamente. Questa è un effrazione!",
+      "de": "Verschwinden Sie von hier! Sie sind unbefugt hier eingedrungen!",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0114",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 819.62,
+      "end": 821.822,
+      "timestamp": "00:13:39",
+      "it": "Essiccati, Dursley, vecchia prugna!",
+      "de": "Halt den Mund, Dursley, du Oberpflaume.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0115",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 827.928,
+      "end": 830.33,
+      "timestamp": "00:13:47",
+      "it": "Non ti vedo da quando eri un affarino, Harry, ma...",
+      "de": "Als ich dich das letzte Mal gesehen hab, warst du noch ein Baby, Harry.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0116",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 830.597,
+      "end": 833.934,
+      "timestamp": "00:13:50",
+      "it": "sei un po' più abbondante di quanto mi aspettavo. Soprattutto sulla pancia.",
+      "de": "Du bist kräftiger, als ich gedacht hätte. Besonders um die Mitte herum.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    },
+    {
+      "id": "p_0117",
+      "type": "phrase",
+      "chapterId": 2,
+      "start": 835.936,
+      "end": 837.437,
+      "timestamp": "00:13:55",
+      "it": "Io non sono Harry.",
+      "de": "Ich bin nicht Harry.",
+      "source": {
+        "it": "srt",
+        "de": "srt-aligned"
+      }
+    }
+  ]
+}
