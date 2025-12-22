@@ -1,0 +1,20 @@
+{
+  "autoversion": "v0.1.4",
+  "generatedAtUtc": "2025-12-22T11:46:13.8911421Z",
+  "pathId": "italian-with-harry",
+  "pathTitle": "Italian with Harry",
+  "items": [
+    {
+      "id": "harry-potter-1-harry-potter-e-la-pietra-filosofale-italian",
+      "title": "Harry Potter 1 (IT)",
+      "language": "it",
+      "path": "./raw/harry-potter-1-harry-potter-e-la-pietra-filosofale-italian.srt"
+    },
+    {
+      "id": "harry-potter-2-harry-potter-e-la-camera-dei-segreti-italian",
+      "title": "Harry Potter 2 (IT)",
+      "language": "it",
+      "path": "./raw/harry-potter-2-harry-potter-e-la-camera-dei-segreti-italian.srt"
+    }
+  ]
+}
