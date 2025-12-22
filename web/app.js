@@ -1,4 +1,4 @@
-// GH-AUTOVERSION: v0.2.3
+// GH-AUTOVERSION: v0.2.4
 const { useEffect, useMemo, useState } = React;
 
 const STUDY_MODES = [
@@ -64,7 +64,7 @@ async function tryLoadCards(pathId) {
   } catch { return null; }
 }
 
-// Overrides
+// ---------- Overrides (per-card) ----------
 function makeOverrideKey(pathId, movieId, cardId) { return `llm.override.${pathId}.${movieId}.${cardId}`; }
 function loadOverride(pathId, movieId, cardId) {
   const key = makeOverrideKey(pathId, movieId, cardId);
@@ -89,11 +89,11 @@ function exportOverrides(pathId, movieId) {
   } catch {}
   downloadTextFile(
     `llm-overrides_${pathId}_${movieId}.json`,
-    JSON.stringify({ autoversion: "v0.2.3", pathId, movieId, exportedAtUtc: new Date().toISOString(), overrides }, null, 2)
+    JSON.stringify({ autoversion: "v0.2.4", pathId, movieId, exportedAtUtc: new Date().toISOString(), overrides }, null, 2)
   );
 }
 
-// Link templates
+// ---------- Link templates ----------
 function loadLinkTemplates() {
   try {
     const raw = localStorage.getItem(LINK_TEMPLATES_STORAGE_KEY);
@@ -113,8 +113,26 @@ function buildLink(urlTemplate, card) {
 async function copyToClipboard(text) {
   try { await navigator.clipboard.writeText(text); return true; } catch { return false; }
 }
+function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
-// UI components
+function highlightText(text, needle) {
+  if (!text || !needle) return text || "";
+  const pattern = new RegExp(`(${escapeRegExp(needle)})`, "ig");
+  const parts = String(text).split(pattern);
+  return parts.map((p, i) => {
+    if (p.toLowerCase() === needle.toLowerCase()) return React.createElement("mark", { key: i }, p);
+    return React.createElement(React.Fragment, { key: i }, p);
+  });
+}
+
+function formatDeContext(text) {
+  // Make "word carpets" easier to read without changing stored data.
+  // Common in subtitles: " - " separates speakers/clauses.
+  if (!text) return "";
+  return String(text).replaceAll(" - ", "\n- ");
+}
+
+// ---------- UI components ----------
 function ThemeMenu({ themeId, onChangeTheme, isOpen, onClose, onOpenLinks }) {
   useEffect(() => {
     function handleKey(e) { if (e.key === "Escape") onClose(); }
@@ -167,9 +185,6 @@ function LinkConfigModal({ isOpen, onClose, linkTemplates, onChangeTemplates, on
         <div className="modalTitle">Configure deep links</div>
         <div className="modalText">
           Use placeholders <code>{"{it}"}</code> and <code>{"{de}"}</code>. Text is URL-encoded automatically.
-          <div style={{ marginTop: "6px" }}>
-            Example: <code>https://www.deepl.com/translator#it/de/{"{it}"}</code>
-          </div>
         </div>
 
         <div className="modalList">
@@ -192,21 +207,45 @@ function LinkConfigModal({ isOpen, onClose, linkTemplates, onChangeTemplates, on
   );
 }
 
-function Flashcard({ card, onEditDe, linkTemplates }) {
-  const [isBack, setIsBack] = useState(false);
+function Flashcard({
+  card,
+  tokenToHighlight,
+  isBack,
+  onFlip,
+  resetToFrontWhenBrowsing,
+  onEditMeaningDe,
+  linkTemplates
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [copyState, setCopyState] = useState("");
 
-  useEffect(() => { setIsBack(false); setIsEditing(false); setCopyState(""); }, [card?.id]);
+  useEffect(() => {
+    setIsEditing(false);
+    setCopyState("");
+  }, [card?.id]);
 
   if (!card) return null;
 
-  function onFlip() { setIsBack((v) => !v); setIsEditing(false); }
+  const isWord = card.type === "word";
+  const originalDeField = card.de || "";
+  // Migration layer:
+  // Older generated word cards put a DE "context gloss" into card.de.
+  // We treat that as "context", and keep "meaning" separate for manual edits.
+  const contextDe = isWord ? (card.deContext ?? originalDeField) : originalDeField;
+  const meaningDe = isWord ? (card.deMeaning ?? "") : originalDeField;
 
   async function handleCopy(text) {
     const ok = await copyToClipboard(text);
     setCopyState(ok ? "Copied" : "Copy failed");
     setTimeout(() => setCopyState(""), 1200);
+  }
+
+  function onFlipClick() {
+    onFlip(!isBack);
+    if (resetToFrontWhenBrowsing === false) {
+      // no-op
+    }
+    setIsEditing(false);
   }
 
   return (
@@ -218,43 +257,55 @@ function Flashcard({ card, onEditDe, linkTemplates }) {
 
       {!isBack ? (
         <div className="cardText">
-          <div className="front">{card.it}</div>
-          <div className="hint">Use “Flip” to see / edit German</div>
+          <h2 className="textPrimary">{card.it}</h2>
+          <div className="hint">Use “Flip” to see German</div>
         </div>
       ) : (
         <div className="cardText">
-          {/* show original IT on the back as reference */}
           <div className="backSource">
-            <div className="backSourceLabel">Italian</div>
-            <div className="backSourceText">{card.it}</div>
+            <div className="backSourceLabel">Original</div>
+            <h3 className="textSecondary">{card.it}</h3>
           </div>
 
-          {!isEditing ? (
+          {/* German meaning (for words) or German translation (for phrases) */}
+          {!isWord ? (
             <div className="backPlain">
-              {card.de ? card.de : <span className="muted">(German empty)</span>}
+              <h2 className="textPrimary">{card.de ? card.de : <span className="muted">(German empty)</span>}</h2>
             </div>
           ) : (
-            <textarea
-              className="editBox"
-              rows={card.type === "phrase" ? 4 : 2}
-              value={card.de || ""}
-              placeholder="German translation / meaning"
-              onChange={(e) => onEditDe(card.id, e.target.value)}
-            />
-          )}
+            <div className="backPlain">
+              <div className="block">
+                <div className="backSourceLabel">Meaning (DE)</div>
+                {!isEditing ? (
+                  <h2 className="textPrimary">{meaningDe ? meaningDe : <span className="muted">(add meaning)</span>}</h2>
+                ) : (
+                  <textarea
+                    className="editBox"
+                    rows={2}
+                    value={meaningDe}
+                    placeholder="German meaning (e.g., 'dies', 'das')"
+                    onChange={(e) => onEditMeaningDe(card.id, e.target.value)}
+                  />
+                )}
+              </div>
 
-          {card.type === "word" && (
-            <div className="context">
-              <div><b>freq:</b> {card.freq ?? ""}</div>
-              {(card.examples || []).map((ex, idx) => (
-                <div key={idx} className="example">
-                  <div><b>{ex.timestamp}</b> — {ex.it}</div>
-                  <div className="muted">{ex.de}</div>
+              <div className="block">
+                <div className="backSourceLabel">Context (DE from subtitles)</div>
+                <div className="textSecondary prewrap">{formatDeContext(contextDe) || <span className="muted">(no context)</span>}</div>
+              </div>
+
+              <div className="context">
+                <div><b>freq:</b> {card.freq ?? ""}</div>
+                {(card.examples || []).map((ex, idx) => (
+                  <div key={idx} className="example">
+                    <div><b>{ex.timestamp}</b> — {highlightText(ex.it, tokenToHighlight)}</div>
+                    <div className="muted prewrap">{formatDeContext(ex.de)}</div>
+                  </div>
+                ))}
+                <div className="muted" style={{ marginTop: "8px" }}>
+                  <b>word info (placeholder):</b>{" "}
+                  POS={card.wordInfo?.pos || "?"}, lemma={card.wordInfo?.lemma || "?"}, infinitive={card.wordInfo?.infinitive || "?"}
                 </div>
-              ))}
-              <div className="muted" style={{ marginTop: "8px" }}>
-                <b>word info (placeholder):</b>{" "}
-                POS={card.wordInfo?.pos || "?"}, lemma={card.wordInfo?.lemma || "?"}, infinitive={card.wordInfo?.infinitive || "?"}
               </div>
             </div>
           )}
@@ -264,11 +315,16 @@ function Flashcard({ card, onEditDe, linkTemplates }) {
       )}
 
       <div className="cardActions">
-        <button onClick={onFlip}>Flip</button>
-        {isBack && <button onClick={() => setIsEditing((v) => !v)}>{isEditing ? "Done" : "Edit"}</button>}
+        <button onClick={onFlipClick}>Flip</button>
+
+        {isBack && card.type === "word" && (
+          <button onClick={() => setIsEditing((v) => !v)}>{isEditing ? "Done" : "Edit meaning"}</button>
+        )}
 
         <button onClick={() => handleCopy(card.it)}>Copy IT</button>
-        <button onClick={() => handleCopy(card.de || "")} disabled={!card.de}>Copy DE</button>
+        <button onClick={() => handleCopy(card.type === "word" ? (card.deMeaning || "") : (card.de || ""))} disabled={card.type === "word" ? !(card.deMeaning || "") : !(card.de || "")}>
+          Copy DE
+        </button>
         {copyState ? <span className="tiny">{copyState}</span> : null}
 
         <div className="spacer" />
@@ -288,7 +344,6 @@ function Flashcard({ card, onEditDe, linkTemplates }) {
 function App() {
   const [themeId, setThemeId] = useState(loadSavedTheme());
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
-
   useEffect(() => { applyTheme(themeId); saveTheme(themeId); }, [themeId]);
 
   const [linkTemplates, setLinkTemplates] = useState(loadLinkTemplates());
@@ -305,6 +360,10 @@ function App() {
   const [shuffleEnabled, setShuffleEnabled] = useState(false);
   const [selectedChapterId, setSelectedChapterId] = useState(1);
   const [index, setIndex] = useState(0);
+
+  // flip persistence
+  const [isBack, setIsBack] = useState(false);
+  const [resetToFrontWhenBrowsing, setResetToFrontWhenBrowsing] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -343,6 +402,17 @@ function App() {
     return baseCards.map((c) => {
       const override = loadOverride(learningPath.pathId, CARDS_MOVIE_ID, c.id);
       if (!override) return c;
+
+      // Support editing separate meaning for word cards
+      if (c.type === "word") {
+        return {
+          ...c,
+          deMeaning: override.deMeaning ?? c.deMeaning,
+          deContext: override.deContext ?? c.deContext,
+          // keep backward compatibility: if override contains "de", treat as meaning
+          de: override.de ?? c.de,
+        };
+      }
       return { ...c, de: override.de ?? c.de };
     });
   }, [baseCards, learningPath]);
@@ -356,7 +426,10 @@ function App() {
 
   useEffect(() => { setSelectedChapterId(1); setIndex(0); }, [studyMode, chapterMinutes]);
 
-  const chapterCards = useMemo(() => cardsWithOverrides.filter((c) => (c.chapterId || 1) === selectedChapterId), [cardsWithOverrides, selectedChapterId]);
+  const chapterCards = useMemo(
+    () => cardsWithOverrides.filter((c) => (c.chapterId || 1) === selectedChapterId),
+    [cardsWithOverrides, selectedChapterId]
+  );
 
   const deck = useMemo(() => {
     const arr = [...chapterCards];
@@ -368,17 +441,25 @@ function App() {
     return arr;
   }, [chapterCards, shuffleEnabled]);
 
-  useEffect(() => { setIndex(0); }, [selectedChapterId, shuffleEnabled]);
+  useEffect(() => {
+    setIndex(0);
+    if (resetToFrontWhenBrowsing) setIsBack(false);
+  }, [selectedChapterId, shuffleEnabled]);
 
   const current = deck[index];
 
-  function onEditDe(cardId, newDe) {
-    if (!learningPath) return;
-    saveOverride(learningPath.pathId, CARDS_MOVIE_ID, cardId, { de: newDe });
-    setIndex((i) => i);
-  }
+  useEffect(() => {
+    if (resetToFrontWhenBrowsing) setIsBack(false);
+  }, [index, resetToFrontWhenBrowsing]);
+
   function next() { if (!deck.length) return; setIndex((i) => (i + 1 < deck.length ? i + 1 : 0)); }
   function prev() { if (!deck.length) return; setIndex((i) => (i - 1 >= 0 ? i - 1 : deck.length - 1)); }
+
+  function onEditMeaningDe(cardId, newMeaning) {
+    if (!learningPath) return;
+    saveOverride(learningPath.pathId, CARDS_MOVIE_ID, cardId, { deMeaning: newMeaning });
+    setIndex((i) => i);
+  }
 
   return (
     <div className="container">
@@ -414,6 +495,11 @@ function App() {
           Shuffle
         </label>
 
+        <label title="If enabled, browsing Next/Prev returns to the front side">
+          <input type="checkbox" checked={resetToFrontWhenBrowsing} onChange={(e) => setResetToFrontWhenBrowsing(e.target.checked)} />
+          Reset to front on browse
+        </label>
+
         <button onClick={() => learningPath && exportOverrides(learningPath.pathId, CARDS_MOVIE_ID)} disabled={!learningPath}>
           Export overrides
         </button>
@@ -436,7 +522,15 @@ function App() {
             <span>{deck.length ? `${index + 1} / ${deck.length}` : "0 / 0"}</span>
           </div>
 
-          <Flashcard card={current} onEditDe={onEditDe} linkTemplates={linkTemplates} />
+          <Flashcard
+            card={current}
+            tokenToHighlight={current.type === "word" ? current.it : ""}
+            isBack={isBack}
+            onFlip={setIsBack}
+            resetToFrontWhenBrowsing={resetToFrontWhenBrowsing}
+            onEditMeaningDe={onEditMeaningDe}
+            linkTemplates={linkTemplates}
+          />
 
           <div className="nav">
             <button onClick={prev}>◀</button>
@@ -445,9 +539,16 @@ function App() {
         </>
       )}
 
-      <p className="footer">Tip: click the pirate logo to open the menu. You can configure deep links there.</p>
+      <p className="footer">Tip: click the pirate logo to open the menu.</p>
 
-      <img className="pirateLogo clickable" src="./assets/pirate-quad.png" alt="Smiling Pirate" onClick={() => setThemeMenuOpen(true)} role="button" tabIndex={0} />
+      <img
+        className="pirateLogo clickable"
+        src="./assets/pirate-quad.png"
+        alt="Smiling Pirate"
+        onClick={() => setThemeMenuOpen(true)}
+        role="button"
+        tabIndex={0}
+      />
 
       <ThemeMenu
         themeId={themeId}

@@ -1,4 +1,4 @@
-/* GH-AUTOVERSION: v0.1.5 */
+/* GH-AUTOVERSION: v0.2.0 */
 
 /* =========================================================
    Theme system
@@ -7,131 +7,127 @@
    ========================================================= */
 
 /* ---------- Base / defaults (used if no data-theme set) ---------- */
-:root {
-  --bg0: #fafafa;
-  --bg1: #ffffff;
-  --card: #ffffff;
-  --border: rgba(0, 0, 0, 0.12);
-  --text: #111111;
-  --muted: rgba(0, 0, 0, 0.65);
-  --accent: #1a73e8;
-  --accent2: #0f5cc0;
-  --glow: rgba(26, 115, 232, 0.25);
+:root{
+  --bg0:#fafafa;
+  --bg1:#ffffff;
+  --card:#ffffff;
+  --border:rgba(0,0,0,0.12);
+  --text:#111111;
+  --muted:rgba(0,0,0,0.65);
 
-  --control-bg: #ffffff;
-  --control-border: rgba(0, 0, 0, 0.18);
+  --accent:#1a73e8;
+  --accent2:#0f5cc0;
+  --glow:rgba(26,115,232,0.25);
 
-  --shadow: rgba(0, 0, 0, 0.18);
+  --control-bg:#ffffff;
+  --control-border:rgba(0,0,0,0.18);
+
+  --shadow:rgba(0,0,0,0.18);
 }
 
 /* ---------- Theme: light ---------- */
-body[data-theme="light"] {
-  --bg0: #fafafa;
-  --bg1: #ffffff;
-  --card: #ffffff;
-  --border: rgba(0, 0, 0, 0.12);
-  --text: #111111;
-  --muted: rgba(0, 0, 0, 0.65);
-  --accent: #1a73e8;
-  --accent2: #0f5cc0;
-  --glow: rgba(26, 115, 232, 0.25);
-
-  --control-bg: #ffffff;
-  --control-border: rgba(0, 0, 0, 0.18);
-
-  --shadow: rgba(0, 0, 0, 0.18);
+body[data-theme="light"]{
+  --bg0:#fafafa;
+  --bg1:#ffffff;
+  --card:#ffffff;
+  --border:rgba(0,0,0,0.12);
+  --text:#111111;
+  --muted:rgba(0,0,0,0.65);
+  --accent:#1a73e8;
+  --accent2:#0f5cc0;
+  --glow:rgba(26,115,232,0.25);
+  --control-bg:#ffffff;
+  --control-border:rgba(0,0,0,0.18);
+  --shadow:rgba(0,0,0,0.18);
 }
 
 /* ---------- Theme: smilingpirate ---------- */
-body[data-theme="smilingpirate"] {
-  --bg0: #000030; /* dark navy, close to logo background - was at some point 061a3a */
-  --bg1: #000030; /* keep same so no gradients */
-  --card: rgba(7, 24, 44, 0.78);
-  --border: rgba(255, 234, 90, 0.22);
-  --text: #eaf1ff; /* #eaf1ff off-white */
-  --muted: rgba(234, 241, 255, 0.70);
-  --accent: #FFFF33; /* was #ffe44d */
-  --accent2: #ffd100;
-  --glow: rgba(255, 228, 77, 0.35);
+body[data-theme="smilingpirate"]{
+  --bg0:#000030;
+  --bg1:#000030;
+  --card:rgba(7,24,44,0.78);
+  --border:rgba(255,234,90,0.22);
+  --text:#eaf1ff;
+  --muted:rgba(234,241,255,0.70);
 
-  --control-bg: rgba(0, 0, 0, 0.15);
-  --control-border: rgba(255, 228, 77, 0.22);
+  --accent:#FFFF33;
+  --accent2:#ffd100;
+  --glow:rgba(255,255,51,0.28);
 
-  --shadow: rgba(0, 0, 0, 0.55);
+  --control-bg:rgba(0,0,0,0.20);
+  --control-border:rgba(255,255,51,0.28);
+
+  --shadow:rgba(0,0,0,0.55);
 }
 
 /* ---------- Theme: dark ---------- */
-body[data-theme="dark"] {
-  --bg0: #0b0d10;
-  --bg1: #10141a;
-  --card: rgba(18, 22, 28, 0.9);
-  --border: rgba(255, 255, 255, 0.12);
-  --text: #f0f4ff;
-  --muted: rgba(240, 244, 255, 0.70);
-  --accent: #8ab4f8;
-  --accent2: #6ea3f2;
-  --glow: rgba(138, 180, 248, 0.25);
+body[data-theme="dark"]{
+  --bg0:#0b0d10;
+  --bg1:#10141a;
+  --card:rgba(18,22,28,0.90);
+  --border:rgba(255,255,255,0.12);
+  --text:#f0f4ff;
+  --muted:rgba(240,244,255,0.70);
 
-  --control-bg: rgba(255, 255, 255, 0.06);
-  --control-border: rgba(255, 255, 255, 0.12);
+  --accent:#8ab4f8;
+  --accent2:#6ea3f2;
+  --glow:rgba(138,180,248,0.25);
 
-  --shadow: rgba(0, 0, 0, 0.6);
+  --control-bg:rgba(255,255,255,0.06);
+  --control-border:rgba(255,255,255,0.12);
+
+  --shadow:rgba(0,0,0,0.60);
 }
 
 /* ---------- Theme: custom (placeholder) ---------- */
-body[data-theme="custom"] {
-  /* Start as a copy of light; later you can override via UI and write CSS vars */
-  --bg0: #fafafa;
-  --bg1: #ffffff;
-  --card: #ffffff;
-  --border: rgba(0, 0, 0, 0.12);
-  --text: #111111;
-  --muted: rgba(0, 0, 0, 0.65);
-  --accent: #7c3aed;
-  --accent2: #5b21b6;
-  --glow: rgba(124, 58, 237, 0.25);
+body[data-theme="custom"]{
+  --bg0:#fafafa;
+  --bg1:#ffffff;
+  --card:#ffffff;
+  --border:rgba(0,0,0,0.12);
+  --text:#111111;
+  --muted:rgba(0,0,0,0.65);
 
-  --control-bg: #ffffff;
-  --control-border: rgba(0, 0, 0, 0.18);
+  --accent:#7c3aed;
+  --accent2:#5b21b6;
+  --glow:rgba(124,58,237,0.25);
 
-  --shadow: rgba(0, 0, 0, 0.18);
+  --control-bg:#ffffff;
+  --control-border:rgba(0,0,0,0.18);
+
+  --shadow:rgba(0,0,0,0.18);
 }
 
 /* ---------- Theme: system (follows OS preference) ---------- */
-body[data-theme="system"] {
-  /* default to light-like tokens; dark tokens are applied via media query below */
-  --bg0: #fafafa;
-  --bg1: #ffffff;
-  --card: #ffffff;
-  --border: rgba(0, 0, 0, 0.12);
-  --text: #111111;
-  --muted: rgba(0, 0, 0, 0.65);
-  --accent: #1a73e8;
-  --accent2: #0f5cc0;
-  --glow: rgba(26, 115, 232, 0.25);
-
-  --control-bg: #ffffff;
-  --control-border: rgba(0, 0, 0, 0.18);
-
-  --shadow: rgba(0, 0, 0, 0.18);
+body[data-theme="system"]{
+  --bg0:#fafafa;
+  --bg1:#ffffff;
+  --card:#ffffff;
+  --border:rgba(0,0,0,0.12);
+  --text:#111111;
+  --muted:rgba(0,0,0,0.65);
+  --accent:#1a73e8;
+  --accent2:#0f5cc0;
+  --glow:rgba(26,115,232,0.25);
+  --control-bg:#ffffff;
+  --control-border:rgba(0,0,0,0.18);
+  --shadow:rgba(0,0,0,0.18);
 }
 
-@media (prefers-color-scheme: dark) {
-  body[data-theme="system"] {
-    --bg0: #0b0d10;
-    --bg1: #10141a;
-    --card: rgba(18, 22, 28, 0.9);
-    --border: rgba(255, 255, 255, 0.12);
-    --text: #f0f4ff;
-    --muted: rgba(240, 244, 255, 0.70);
-    --accent: #8ab4f8;
-    --accent2: #6ea3f2;
-    --glow: rgba(138, 180, 248, 0.25);
-
-    --control-bg: rgba(255, 255, 255, 0.06);
-    --control-border: rgba(255, 255, 255, 0.12);
-
-    --shadow: rgba(0, 0, 0, 0.6);
+@media (prefers-color-scheme: dark){
+  body[data-theme="system"]{
+    --bg0:#0b0d10;
+    --bg1:#10141a;
+    --card:rgba(18,22,28,0.90);
+    --border:rgba(255,255,255,0.12);
+    --text:#f0f4ff;
+    --muted:rgba(240,244,255,0.70);
+    --accent:#8ab4f8;
+    --accent2:#6ea3f2;
+    --glow:rgba(138,180,248,0.25);
+    --control-bg:rgba(255,255,255,0.06);
+    --control-border:rgba(255,255,255,0.12);
+    --shadow:rgba(0,0,0,0.60);
   }
 }
 
@@ -139,331 +135,351 @@ body[data-theme="system"] {
    App layout + components
    ========================================================= */
 
-* { box-sizing: border-box; }
+*{ box-sizing:border-box; }
 
-body {
-  margin: 0;
-  font-family: system-ui, Arial, sans-serif;
-  color: var(--text);
-  background: var(--bg0);
+body{
+  margin:0;
+  font-family:system-ui, Arial, sans-serif;
+  color:var(--text);
+  background:var(--bg0);
 }
 
-.container {
-  max-width: 980px;
-  margin: 22px auto;
-  padding: 0 18px 96px; /* bottom padding so fixed logo never overlaps */
+.container{
+  max-width:980px;
+  margin:22px auto;
+  padding:0 18px 96px;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 14px;
+.header{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin-bottom:14px;
 }
 
-.title {
-  font-size: 28px;
-  margin: 0;
+.title{
+  font-size:28px;
+  margin:0;
 }
 
-.subtitle {
-  margin: 0;
-  color: var(--muted);
+.subtitle{
+  margin:0;
+  color:var(--muted);
 }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin: 10px 0 14px;
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin:10px 0 14px;
 }
 
-label {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
+label{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
 }
 
-/* Improve readability of selects/inputs in the top control bar */
+/* Controls readability (selects + buttons) */
 .controls select,
 .controls button,
 .controls input[type="checkbox"]{
-  color: var(--text);
+  color:var(--text);
+}
+
+.controls select,
+.controls button,
+.input,
+.editBox{
+  background:var(--control-bg);
+  border:1px solid var(--control-border);
+  border-radius:10px;
+  padding:8px 10px;
 }
 
 .controls select{
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.25);
-  padding: 8px 10px;
-  border-radius: 10px;
+  min-height:36px;
 }
 
-/* Many browsers ignore option styling, but this helps where supported */
 .controls select option{
-  background: #000030;
-  color: #ffffff;
+  background:var(--bg0);
+  color:var(--text);
 }
 
-button {
-  cursor: pointer;
+/* Buttons */
+button{
+  cursor:pointer;
 }
 
-button:hover {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.0), 0 0 0 3px rgba(0,0,0,0.0);
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--glow) 50%, transparent);
+button:hover{
+  outline:none;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--glow) 55%, transparent);
 }
 
-.meta {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  color: var(--muted);
-  margin: 6px 0 12px;
+button:disabled{
+  opacity:0.55;
+  cursor:not-allowed;
 }
 
-.error {
-  color: #ff6b6b;
-  font-weight: 700;
+/* Meta + errors */
+.meta{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  color:var(--muted);
+  margin:6px 0 12px;
 }
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px;
-  cursor: pointer;
-  box-shadow: 0 10px 30px var(--shadow);
-  backdrop-filter: blur(6px);
+.error{
+  color:#ff6b6b;
+  font-weight:700;
 }
 
-.cardTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+/* Card */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  box-shadow:0 10px 30px var(--shadow);
+  backdrop-filter:blur(6px);
+  cursor:default; /* flip is explicit via button */
 }
 
-.badge {
-  font-size: 12px;
-  padding: 2px 8px;
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  color: var(--accent);
+.cardTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
 }
 
-.timestamp {
-  font-size: 12px;
-  color: var(--muted);
+.badge{
+  font-size:12px;
+  padding:2px 8px;
+  border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius:999px;
+  background:color-mix(in srgb, var(--accent) 10%, transparent);
+  color:var(--accent);
 }
 
-.cardText {
-  min-height: 140px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.timestamp{
+  font-size:12px;
+  color:var(--muted);
 }
 
-.front {
-  font-size: 22px;
-  line-height: 1.25;
+.cardText{
+  min-height:140px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
-.back {
-  font-size: 18px;
-  font-weight: 800;
+/* Typography system (matches app.js v0.2.4) */
+.textPrimary{
+  font-size:18px;
+  font-weight:400;
+  line-height:1.35;
+  margin:0;
 }
 
-.context {
-  font-size: 14px;
-  color: var(--muted);
+.textSecondary{
+  font-size:14px;
+  font-weight:400;
+  line-height:1.35;
+  margin:0;
+  opacity:0.85;
 }
 
-.hint {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: auto;
+.hint{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:auto;
 }
 
-.nav {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 12px;
+.context{
+  font-size:14px;
+  color:var(--muted);
 }
 
-.footer {
-  margin-top: 18px;
-  color: var(--muted);
-  font-size: 12px;
+.prewrap{
+  white-space:pre-wrap;
+}
+
+.block{
+  margin-top:10px;
+}
+
+.example{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px dashed color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+mark{
+  background:color-mix(in srgb, var(--accent) 35%, transparent);
+  color:var(--text);
+  padding:0 3px;
+  border-radius:4px;
+}
+
+/* Actions row */
+.cardActions{
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.spacer{ flex:1; }
+
+.links{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.linkBtn{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background:color-mix(in srgb, var(--accent) 10%, transparent);
+  color:var(--text);
+  text-decoration:none;
+  font-size:12px;
+}
+
+.tiny{ font-size:12px; color:var(--muted); }
+
+.footer{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* Nav */
+.nav{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:12px;
 }
 
 /* =========================================================
    Pinned logo (bottom-right)
-   - Add in React: <img className="pirateLogo" src="./assets/pirate-quad.png" ... />
    ========================================================= */
-
-.pirateLogo {
-  position: fixed;
-  right: 14px;
-  bottom: 14px;
-  width: 110px;
-  height: 110px;
-  z-index: 50;
-  opacity: 0.95;
-  pointer-events: none;
-  filter: drop-shadow(0 0 12px var(--glow));
+.pirateLogo{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  width:110px;
+  height:110px;
+  z-index:50;
+  opacity:0.95;
+  pointer-events:none;
+  filter:drop-shadow(0 0 12px var(--glow));
 }
 
-.pirateLogo.clickable {
-  pointer-events: auto;
-  cursor: pointer;
+.pirateLogo.clickable{
+  pointer-events:auto;
+  cursor:pointer;
 }
 
+/* =========================================================
+   Theme menu
+   ========================================================= */
 .themeMenuBackdrop{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 60;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  z-index:60;
 }
 
 .themeMenu{
-  position: fixed;
-  right: 18px;
-  bottom: 140px;
-  width: 220px;
-  border-radius: 14px;
-  padding: 12px;
-  background: color-mix(in srgb, var(--card) 92%, transparent);
-  border: 1px solid var(--border);
-  box-shadow: 0 18px 40px var(--shadow);
-  z-index: 61;
-  backdrop-filter: blur(8px);
+  position:fixed;
+  right:18px;
+  bottom:140px;
+  width:240px;
+  border-radius:14px;
+  padding:12px;
+  background:color-mix(in srgb, var(--card) 92%, transparent);
+  border:1px solid var(--border);
+  box-shadow:0 18px 40px var(--shadow);
+  z-index:61;
+  backdrop-filter:blur(8px);
 }
 
 .themeMenuTitle{
-  font-weight: 800;
-  margin-bottom: 8px;
-}
-
-.themeMenuItem{
-  width: 100%;
-  text-align: left;
-  margin: 6px 0;
-}
-
-.themeMenuItem.active{
-  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--glow) 55%, transparent);
-}
-
-.themeMenuHint{
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-/* For edit + modal UI */
-.editBox{
-  width: 100%;
-  border-radius: 10px;
-  padding: 10px;
-  border: 1px solid var(--control-border);
-  background: var(--control-bg);
-  color: var(--text);
-  resize: vertical;
-}
-
-.backPlain{
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.25;
-  white-space: pre-wrap;
-}
-
-.muted{ color: var(--muted); }
-
-.cardActions{
-  margin-top: 12px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.spacer{ flex: 1; }
-
-.links{
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.linkBtn{
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 12px;
-}
-
-.tiny{ font-size: 12px; color: var(--muted); }
-
-.modalBackdrop{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 80;
-}
-
-.modal{
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(980px, calc(100vw - 24px));
-  max-height: calc(100vh - 24px);
-  overflow: auto;
-  border-radius: 14px;
-  padding: 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: 0 18px 40px var(--shadow);
-  z-index: 81;
-}
-
-.modalTitle{ font-weight: 900; font-size: 18px; margin-bottom: 8px; }
-.modalText{ color: var(--muted); font-size: 13px; margin-bottom: 10px; }
-
-.modalRow{
-  display: grid;
-  grid-template-columns: 200px 1fr auto;
-  gap: 8px;
-  margin: 8px 0;
-}
-
-.input{
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--control-border);
-  background: var(--control-bg);
-  color: var(--text);
-}
-
-.modalActions{
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 10px;
+  font-weight:800;
+  margin-bottom:8px;
 }
 
 .themeMenuSectionTitle{
-  margin-top: 6px;
-  font-weight: 800;
-  opacity: 0.9;
+  margin-top:6px;
+  font-weight:800;
+  opacity:0.9;
 }
+
+.themeMenuItem{
+  width:100%;
+  text-align:left;
+  margin:6px 0;
+}
+
+.themeMenuItem.active{
+  border-color:color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--glow) 55%, transparent);
+}
+
+.themeMenuHint{
+  margin-top:8px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* =========================================================
+   Modal (Link config)
+   ========================================================= */
+.modalBackdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  z-index:80;
+}
+
+.modal{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  width:min(980px, calc(100vw - 24px));
+  max-height:calc(100vh - 24px);
+  overflow:auto;
+  border-radius:14px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:0 18px 40px var(--shadow);
+  z-index:81;
+}
+
+.modalTitle{ font-weight:900; font-size:18px; margin-bottom:8px; }
+.modalText{ color:var(--muted); font-size:13px; margin-bottom:10px; }
+
+.modalRow{
+  display:grid;
+  grid-template-columns:200px 1fr auto;
+  gap:8px;
+  margin:8px 0;
+}
+
+.modalActions{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  margin-top:10px;
+}
+
+.muted{ color:var(--muted); }
