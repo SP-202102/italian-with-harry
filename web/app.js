@@ -1,20 +1,17 @@
-// GH-AUTOVERSION: v0.1.1
+// GH-AUTOVERSION: v0.1.3
 const { useEffect, useMemo, useState } = React;
 
 async function loadManifest() {
   const response = await fetch("./data/manifest.json", { cache: "no-store" });
   if (!response.ok) {
-    throw new Error(\Failed to load manifest.json: \ \\);
+    throw new Error(`Failed to load manifest.json: ${response.status} ${response.statusText}`);
   }
-
-  // manifest.json starts with a single-line comment header, so we must strip it
-  const text = await response.text();
-  const jsonText = text.replace(/^\\/\\/.*\\n/, "");
-  const manifest = JSON.parse(jsonText);
+  const manifest = await response.json();
   return manifest.items ?? [];
 }
 
 function parseSrtTime(timeString) {
+  // "HH:MM:SS,mmm"
   const [hh, mm, ssMs] = timeString.split(":");
   const [ss, ms] = ssMs.split(",");
   return Number(hh) * 3600 + Number(mm) * 60 + Number(ss) + Number(ms) / 1000;
@@ -25,16 +22,16 @@ function formatHms(totalSeconds) {
   const hh = String(Math.floor(s / 3600)).padStart(2, "0");
   const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
   const ss = String(s % 60).padStart(2, "0");
-  return \\:\:\\;
+  return `${hh}:${mm}:${ss}`;
 }
 
 function parseSrt(srtText) {
-  const normalized = srtText.replace(/\\r\\n/g, "\\n").replace(/\\r/g, "\\n");
-  const blocks = normalized.split(/\\n\\s*\\n/);
+  const normalized = srtText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  const blocks = normalized.split(/\n\s*\n/);
   const entries = [];
 
   for (const block of blocks) {
-    const lines = block.split("\\n").map((l) => l.trim()).filter(Boolean);
+    const lines = block.split("\n").map((l) => l.trim()).filter(Boolean);
     if (lines.length < 2) continue;
 
     let index = null;
@@ -52,7 +49,7 @@ function parseSrt(srtText) {
     }
 
     const match = timeLine.match(
-      /(\\d{2}:\\d{2}:\\d{2},\\d{3})\\s*-->\\s*(\\d{2}:\\d{2}:\\d{2},\\d{3})/
+      /(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})/
     );
     if (!match) continue;
 
@@ -60,10 +57,10 @@ function parseSrt(srtText) {
     const endSeconds = parseSrtTime(match[2]);
 
     const text = textLines
-      .map((l) => l.replace(/<[^>]+>/g, "").replace(/\\{\\\\.*?\\}/g, ""))
+      .map((l) => l.replace(/<[^>]+>/g, "").replace(/\{\\.*?\}/g, ""))
       .join(" ")
-      .replace(/\\s+/g, " ")
-      .replace(/\\[[^\\]]+\\]/g, "")
+      .replace(/\s+/g, " ")
+      .replace(/\[[^\]]+\]/g, "")
       .replace(/♪/g, "")
       .trim();
 
@@ -83,13 +80,14 @@ function assignChapterId(seconds, chapterSizeSeconds) {
 function buildChapters(entries, chapterSizeSeconds) {
   const maxEnd = Math.max(...entries.map((e) => e.endSeconds), 0);
   const count = Math.max(1, Math.ceil(maxEnd / chapterSizeSeconds));
+
   const chapters = [];
   for (let i = 0; i < count; i++) {
     const start = i * chapterSizeSeconds;
     const end = Math.min((i + 1) * chapterSizeSeconds, maxEnd);
     chapters.push({
       id: i + 1,
-      title: \Kapitel \\,
+      title: `Kapitel ${i + 1}`,
       startHms: formatHms(start),
       endHms: formatHms(end),
     });
@@ -97,9 +95,10 @@ function buildChapters(entries, chapterSizeSeconds) {
   return chapters;
 }
 
+// Minimal: phrase cards (whole subtitle line)
 function buildPhraseCards(entries, chapterSizeSeconds) {
   return entries.map((e, idx) => ({
-    id: \p_\\,
+    id: `p_${idx}`,
     chapterId: assignChapterId(e.startSeconds, chapterSizeSeconds),
     type: "phrase",
     frontIt: e.text,
@@ -110,11 +109,11 @@ function buildPhraseCards(entries, chapterSizeSeconds) {
 }
 
 function Flashcards({ cards }) {
-  const [index, setIndex] = React.useState(0);
-  const [flipped, setFlipped] = React.useState(false);
-  const [deck, setDeck] = React.useState(cards);
+  const [index, setIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [deck, setDeck] = useState(cards);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setDeck(cards);
     setIndex(0);
     setFlipped(false);
@@ -141,7 +140,7 @@ function Flashcards({ cards }) {
     setFlipped(false);
   }
 
-  if (!current) return React.createElement("p", null, "Keine Karten in diesem Kapitel.");
+  if (!current) return <p>Keine Karten in diesem Kapitel.</p>;
 
   return (
     <div className="cards">
@@ -166,7 +165,7 @@ function Flashcards({ cards }) {
 
       <div className="nav">
         <button onClick={prev}>◀</button>
-        <div>{deck.length ? \\ / \\ : "0 / 0"}</div>
+        <div>{deck.length ? `${index + 1} / ${deck.length}` : "0 / 0"}</div>
         <button onClick={next}>▶</button>
         <button onClick={shuffle}>Shuffle</button>
       </div>
@@ -185,6 +184,7 @@ function App() {
 
   const chapterSizeSeconds = chapterMinutes * 60;
 
+  // load manifest once
   useEffect(() => {
     let cancelled = false;
     async function init() {
@@ -194,9 +194,7 @@ function App() {
         const items = await loadManifest();
         if (cancelled) return;
         setMovies(items);
-        if (items.length > 0) {
-          setMovieId(items[0].id);
-        }
+        if (items.length > 0) setMovieId(items[0].id);
       } catch (e) {
         if (!cancelled) setErrorText(String(e?.message ?? e));
       } finally {
@@ -204,9 +202,12 @@ function App() {
       }
     }
     init();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
+  // load selected SRT
   useEffect(() => {
     const movie = movies.find((m) => m.id === movieId);
     if (!movie) return;
@@ -218,7 +219,7 @@ function App() {
       setErrorText("");
       try {
         const response = await fetch(movie.path, { cache: "no-store" });
-        if (!response.ok) throw new Error(\Failed to fetch SRT: \ \\);
+        if (!response.ok) throw new Error(`Failed to fetch SRT: ${response.status} ${response.statusText}`);
         const text = await response.text();
         const parsed = parseSrt(text);
         if (!cancelled) setEntries(parsed);
@@ -230,7 +231,9 @@ function App() {
     }
 
     loadSrt();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [movieId, movies]);
 
   const chapters = useMemo(() => buildChapters(entries, chapterSizeSeconds), [entries, chapterSizeSeconds]);
@@ -242,19 +245,29 @@ function App() {
   const chapterCards = useMemo(() => cards.filter((c) => c.chapterId === selectedChapterId), [cards, selectedChapterId]);
 
   return (
-    <div>
+    <div className="container">
+      <h1>Italian with Harry</h1>
+
       <div className="controls">
         <label>
           Film:
           <select value={movieId} onChange={(e) => setMovieId(e.target.value)} disabled={movies.length === 0}>
-            {movies.map((m) => <option key={m.id} value={m.id}>{m.title}</option>)}
+            {movies.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.title}
+              </option>
+            ))}
           </select>
         </label>
 
         <label>
           Kapitel-Minuten:
           <select value={chapterMinutes} onChange={(e) => setChapterMinutes(Number(e.target.value))}>
-            {[5, 7, 10, 12].map((m) => <option key={m} value={m}>{m}</option>)}
+            {[5, 7, 10, 12].map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
           </select>
         </label>
 
