@@ -185,16 +185,24 @@ label {
   align-items: center;
 }
 
-select, button, input {
-  font: inherit;
+/* Improve readability of selects/inputs in the top control bar */
+.controls select,
+.controls button,
+.controls input[type="checkbox"]{
+  color: var(--text);
 }
 
-select, button {
+.controls select{
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.25);
   padding: 8px 10px;
   border-radius: 10px;
-  border: 1px solid var(--control-border);
-  background: var(--control-bg);
-  color: var(--text);
+}
+
+/* Many browsers ignore option styling, but this helps where supported */
+.controls select option{
+  background: #000030;
+  color: #ffffff;
 }
 
 button {

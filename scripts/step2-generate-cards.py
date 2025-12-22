@@ -1,28 +1,31 @@
 #!/usr/bin/env python3
-# GH-AUTOVERSION: v0.2.5
+# GH-AUTOVERSION: v0.2.6
 r"""
 Step 2 – Generate cards (phrases + words/tokens) from bilingual SRTs (IT + DE)
 
-v0.2.5 changes (important)
-- Better DE coverage: instead of picking a single DE line per IT line, we now collect
-  a *range* of DE lines that overlap the IT time window (plus optional padding).
-  This favors duplication over omission (safer for bootstrapping).
-- Still monotonic: DE index never goes backwards.
-- Optional merge of adjacent IT lines remains.
+v0.2.6 changes
+- Word/Token cards are no longer "empty" on the German side:
+  - We populate `de` with a best-effort **context gloss** derived from the aligned DE text.
+  - Specifically: for each token we pick the most common DE context among its examples
+    (fallback: first example's DE). This is NOT a true dictionary translation, but it
+    makes the deck immediately usable without APIs.
+- Phrase alignment still favors duplication over omission:
+  - For each IT line we concatenate multiple overlapping DE lines (with padding).
+  - Monotonic DE indexing (no backward jumps).
 
-Usage (recommended):
+Usage:
   py .\scripts\step2-generate-cards.py ^
     --it "data/raw/<italian>.srt" ^
     --de "data/raw/<german>.srt" ^
     --out "web/paths/<path-id>/cards" ^
     --path-id "<path-id>" ^
     --movie-id "<movie-id>" ^
-    --max-minutes 14 ^
+    --max-minutes 15 ^
     --chapter-minutes 7 ^
     --merge-it-adjacent ^
     --merge-it-gap-ms 350 ^
     --de-pad-ms 250 ^
-    --de-max-lines 4
+    --de-max-lines 6
 
 Outputs:
   phrases.base.de.json
@@ -36,7 +39,7 @@ import math
 import re
 from pathlib import Path
 from collections import Counter, defaultdict
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 
 TIME_RE = re.compile(r"(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})")
@@ -145,10 +148,6 @@ def collect_de_range_monotonic(
     pad_seconds: float,
     max_lines: int
 ) -> (str, int):
-    """
-    Collect DE lines that overlap [it_start-pad, it_end+pad], starting from start_index.
-    Returns: concatenated_text, next_start_index
-    """
     if not de_entries:
         return "", start_index
 
@@ -158,24 +157,20 @@ def collect_de_range_monotonic(
     texts: List[str] = []
     i = start_index
 
-    # advance to first plausible overlap (or close)
     while i < len(de_entries) and de_entries[i]["end"] < window_start:
         i += 1
 
     j = i
     while j < len(de_entries) and len(texts) < max_lines:
         d = de_entries[j]
-        # stop if DE starts after window ends (no more overlaps)
         if d["start"] > window_end:
             break
-        # include if overlaps window
         if d["end"] >= window_start and d["start"] <= window_end:
             texts.append(d["text"])
         j += 1
 
-    # next start index should not go backwards; keep j-1 as last consumed index
-    next_index = max(start_index, j-1 if j > start_index else start_index)
-    # de-duplicate simple adjacent duplicates
+    next_index = max(start_index, j - 1 if j > start_index else start_index)
+
     compact: List[str] = []
     for t in texts:
         if not compact or compact[-1] != t:
@@ -208,6 +203,16 @@ def build_phrase_cards(
         })
     return cards
 
+def pick_best_de_gloss(examples: List[Dict[str, str]]) -> str:
+    # Best-effort: choose the most frequent DE context among examples.
+    # If nothing exists, return empty.
+    de_texts = [ (ex.get("de") or "").strip() for ex in examples if (ex.get("de") or "").strip() ]
+    if not de_texts:
+        return ""
+    counts = Counter(de_texts)
+    best, _ = counts.most_common(1)[0]
+    return best
+
 def build_word_cards(
     it_entries: List[Dict[str, Any]],
     phrase_cards: List[Dict[str, Any]],
@@ -217,7 +222,6 @@ def build_word_cards(
     stopwords_it: set,
     max_examples_per_token: int = 2
 ) -> List[Dict[str, Any]]:
-    # Use phrase_cards as the aligned context (already contains de text)
     chapter_token_counts = defaultdict(Counter)
     chapter_examples = defaultdict(lambda: defaultdict(list))
 
@@ -225,7 +229,7 @@ def build_word_cards(
         ch = chapter_id(it["start"], chapter_minutes)
         tokens = [t.lower().replace("’", "'") for t in TOKEN_RE.findall(it["text"])]
         tokens = [t for t in tokens if len(t) >= min_word_length and t not in stopwords_it]
-        de_text = phrase.get("de","")
+        de_text = phrase.get("de", "")
 
         for token in tokens:
             chapter_token_counts[ch][token] += 1
@@ -236,16 +240,18 @@ def build_word_cards(
     cards: List[Dict[str, Any]] = []
     for ch, counter in sorted(chapter_token_counts.items()):
         for token, count in counter.most_common(max_words_per_chapter):
+            examples = chapter_examples[ch][token]
+            gloss = pick_best_de_gloss(examples)
             cards.append({
                 "id": f"w_c{ch}_{token}",
                 "type": "word",
                 "chapterId": ch,
                 "it": token,
-                "de": "",
+                "de": gloss,  # now non-empty in most cases (context gloss)
                 "freq": count,
-                "examples": chapter_examples[ch][token],
+                "examples": examples,
                 "wordInfo": {"pos": "", "lemma": "", "infinitive": ""},
-                "source": {"it": "srt-derived", "de": "manual/override-or-api-later"}
+                "source": {"it": "srt-derived", "de": "de-context-gloss-from-srt"}
             })
     return cards
 
@@ -260,14 +266,14 @@ def main() -> int:
     parser.add_argument("--out", required=True, help="Output folder (e.g., web/paths/<path-id>/cards)")
     parser.add_argument("--path-id", default="italian-with-harry")
     parser.add_argument("--movie-id", default="hp1")
-    parser.add_argument("--max-minutes", type=int, default=14)
+    parser.add_argument("--max-minutes", type=int, default=15)
     parser.add_argument("--chapter-minutes", type=int, default=7)
     parser.add_argument("--min-word-length", type=int, default=3)
     parser.add_argument("--max-words-per-chapter", type=int, default=80)
     parser.add_argument("--merge-it-adjacent", action="store_true")
     parser.add_argument("--merge-it-gap-ms", type=int, default=350)
-    parser.add_argument("--de-pad-ms", type=int, default=250, help="Padding around IT time window when collecting DE lines")
-    parser.add_argument("--de-max-lines", type=int, default=4, help="Max number of DE lines to concatenate per IT card")
+    parser.add_argument("--de-pad-ms", type=int, default=250)
+    parser.add_argument("--de-max-lines", type=int, default=6)
     args = parser.parse_args()
 
     script_dir = Path(__file__).resolve().parent
@@ -304,7 +310,7 @@ def main() -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     meta = {
-        "autoversion": "v0.2.5",
+        "autoversion": "v0.2.6",
         "pathId": args.path_id,
         "movieId": args.movie_id,
         "window": {"start": 0, "end": max_seconds, "endHms": hms(max_seconds)},
@@ -319,9 +325,9 @@ def main() -> int:
             "mergeItalianGapMs": args.merge_it_gap_ms
         },
         "notes": [
-            "DE for phrases is built by concatenating multiple overlapping DE subtitle lines (favor duplication over omission).",
-            "This reduces cases where parts of a sentence would be missing due to split/merge differences between subtitle tracks.",
-            "Word cards do not have direct DE meanings yet; use examples or add overrides later."
+            "Phrase DE is built by concatenating multiple overlapping DE subtitle lines (favor duplication over omission).",
+            "Word cards now include a best-effort DE context gloss (not a dictionary meaning).",
+            "For real word meanings/POS/lemmas, add an enrichment step later."
         ]
     }
 
