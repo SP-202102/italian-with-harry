@@ -352,6 +352,11 @@ function App() {
       <p className="footer">
         Hinweis: Babel-Warnung ist normal im "no-build" Modus. Spaeter koennen wir JSX entfernen oder precompilen.
       </p>
+      <img
+        className="pirateLogo"
+        src="./assets/pirate-quad.png"
+        alt="Smiling Pirate"
+      />
     </div>
   );
 }
