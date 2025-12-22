@@ -1,11 +1,13 @@
-/* GH-AUTOVERSION: v0.1.1 */
+/* GH-AUTOVERSION: v0.1.4 */
 :root { color-scheme: light; }
 body { margin: 0; font-family: system-ui, Arial, sans-serif; background: #fafafa; color: #111; }
 .container { max-width: 920px; margin: 24px auto; padding: 0 16px; }
-h1 { margin: 0 0 16px; font-size: 28px; }
-label { display: inline-flex; gap: 8px; align-items: center; margin-right: 12px; }
-select, button, input { font: inherit; }
+.header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.title { font-size: 28px; margin: 0; }
+.subtitle { margin: 0; opacity: 0.75; }
 .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0 14px; }
+label { display: inline-flex; gap: 8px; align-items: center; }
+select, button, input { font: inherit; }
 .meta { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0.8; margin: 6px 0 12px; }
 .error { color: #b00020; font-weight: 600; }
 .card { background: white; border: 1px solid #ddd; border-radius: 12px; padding: 14px; cursor: pointer; }
