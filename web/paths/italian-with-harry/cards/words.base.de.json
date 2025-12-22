@@ -1,6 +1,6 @@
 {
   "meta": {
-    "autoversion": "v0.2.0-sample",
+    "autoversion": "v0.2.3",
     "pathId": "italian-with-harry",
     "movieId": "hp1",
     "window": {
@@ -10,11 +10,19 @@
     },
     "chapterMinutes": 7,
     "counts": {
-      "phrases": 117,
+      "phrases": 54,
       "words": 160
     },
+    "alignment": {
+      "method": "timestamp-overlap + nearest-midpoint",
+      "monotonic": true,
+      "maxNearestSeconds": 8.0,
+      "mergeItalianAdjacent": true,
+      "mergeItalianGapMs": 350
+    },
     "notes": [
-      "DE text for phrases is aligned from DE SRT by timestamp overlap/nearest.",
+      "DE text for phrases is aligned from DE SRT by timestamp overlap/nearest within a monotonic constraint (no backward jumps).",
+      "Optional: Italian adjacent line merging helps when IT splits sentences across lines.",
       "Word cards do not have direct DE 'meaning' yet; use examples or add overrides later.",
       "POS/lemma/infinitive fields are placeholders for a later NLP step."
     ]
@@ -29,14 +37,14 @@
       "freq": 5,
       "examples": [
         {
-          "timestamp": "00:01:54",
-          "it": "Hagrid lo porterà qui",
-          "de": "- Was macht der Junge? - Hagrid bringt ihn her."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         },
         {
-          "timestamp": "00:01:56",
-          "it": "Lei trova saggio affidare ad Hagrid",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -58,13 +66,13 @@
       "freq": 4,
       "examples": [
         {
-          "timestamp": "00:01:25",
-          "it": "Professoressa McGonagall...",
+          "timestamp": "00:01:22",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         },
         {
-          "timestamp": "00:01:45",
-          "it": "Temo di si professoressa...",
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
           "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
@@ -87,14 +95,14 @@
       "freq": 4,
       "examples": [
         {
-          "timestamp": "00:01:58",
-          "it": "un compito importante come questo?",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         },
         {
-          "timestamp": "00:03:03",
-          "it": "Questo piccino diventerà famoso...",
-          "de": "Er wird berühmt werden. Jedes Kind in unserer Welt wird seinen Namen kennen."
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -116,14 +124,14 @@
       "freq": 4,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         },
         {
-          "timestamp": "00:03:10",
-          "it": "Sarà molto meglio per lui crescere lontano da tutto questo.",
-          "de": "Es ist besser für ihn, wenn er weit weg von all dem aufwächst."
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -145,14 +153,14 @@
       "freq": 4,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         },
         {
-          "timestamp": "00:05:02",
-          "it": "Nel giorno speciale del mio Dudley.",
-          "de": "wenn mein Dudley seinen besonderen Tag hat!"
+          "timestamp": "00:04:53",
+          "it": "Non hai ancora preparato la colazione... e cerca di non bruciare nulla! Si, zia Petunia. Voglio che tutto sia perfetto. Nel giorno speciale del mio Dudley. Sbrigati! Porta il mio caffè ragazzo! Si zio Vernon.",
+          "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,"
         }
       ],
       "wordInfo": {
@@ -174,14 +182,14 @@
       "freq": 3,
       "examples": [
         {
-          "timestamp": "00:03:05",
-          "it": "Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome.",
-          "de": "Er wird berühmt werden. Jedes Kind in unserer Welt wird seinen Namen kennen."
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         },
         {
-          "timestamp": "00:03:10",
-          "it": "Sarà molto meglio per lui crescere lontano da tutto questo.",
-          "de": "Es ist besser für ihn, wenn er weit weg von all dem aufwächst."
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -204,13 +212,13 @@
       "examples": [
         {
           "timestamp": "00:01:22",
-          "it": "Dovevo immaginare che l'avrei trovata qui...",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         },
         {
-          "timestamp": "00:01:54",
-          "it": "Hagrid lo porterà qui",
-          "de": "- Was macht der Junge? - Hagrid bringt ihn her."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -232,13 +240,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:01:25",
-          "it": "Professoressa McGonagall...",
+          "timestamp": "00:01:22",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         },
         {
-          "timestamp": "00:02:26",
-          "it": "Professoressa McGonagall",
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
           "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
@@ -296,7 +304,7 @@
         },
         {
           "timestamp": "00:02:24",
-          "it": "Professor Silente, Signore",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
           "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
@@ -325,7 +333,7 @@
         },
         {
           "timestamp": "00:02:24",
-          "it": "Professor Silente, Signore",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
           "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
@@ -349,13 +357,13 @@
       "examples": [
         {
           "timestamp": "00:01:43",
-          "it": "Sono vere le voci... Albus?",
-          "de": "Darf man den Gerüchten trauen, Albus?"
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         },
         {
           "timestamp": "00:02:48",
-          "it": "Albus...",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -377,13 +385,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:01:52",
-          "it": "E il bimbo?",
-          "de": "- Was macht der Junge? - Hagrid bringt ihn her."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         },
         {
           "timestamp": "00:04:47",
-          "it": "Ecco il bimbo che compie gli anni...",
+          "it": "Ecco il bimbo che compie gli anni... Buon compleanno figliolo!",
           "de": "- Da kommt ja unser Geburtstagskind. - Herzlichen Glückwunsch, mein Sohn."
         }
       ],
@@ -407,13 +415,13 @@
       "examples": [
         {
           "timestamp": "00:02:24",
-          "it": "Professor Silente, Signore",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
           "de": "Professor Dumbledore, Sir. Professor McGonagall."
         },
         {
-          "timestamp": "00:02:30",
-          "it": "No Signore!",
-          "de": "- Und es gab keine Probleme, Hagrid? - Nein, Sir."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -435,13 +443,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         },
         {
-          "timestamp": "00:04:58",
-          "it": "Voglio che tutto sia perfetto.",
+          "timestamp": "00:04:53",
+          "it": "Non hai ancora preparato la colazione... e cerca di non bruciare nulla! Si, zia Petunia. Voglio che tutto sia perfetto. Nel giorno speciale del mio Dudley. Sbrigati! Porta il mio caffè ragazzo! Si zio Vernon.",
           "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,"
         }
       ],
@@ -464,14 +472,14 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         },
         {
-          "timestamp": "00:06:41",
-          "it": "Parli di frequente alle persone?",
-          "de": "Ich meine, redest du oft mit Leuten?"
+          "timestamp": "00:06:37",
+          "it": "Non ho mai parlato a un serpente prima. Parli di frequente alle persone?",
+          "de": "Na ja, ich hab noch nie mit 'ner Schlange gesprochen."
         }
       ],
       "wordInfo": {
@@ -493,14 +501,14 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:03:10",
-          "it": "Sarà molto meglio per lui crescere lontano da tutto questo.",
-          "de": "Es ist besser für ihn, wenn er weit weg von all dem aufwächst."
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         },
         {
           "timestamp": "00:06:19",
-          "it": "Mi scuso per lui...",
-          "de": "Tut mir echt Leid."
+          "it": "Mi scuso per lui... Non capisce cosa vuol dire... starsene là, giorno dopo giorno. Guardando le facce disgustate della gente che ti passa accanto.",
+          "de": "Er hat keine Ahnung, was es heißt, daliegen zu müssen"
         }
       ],
       "wordInfo": {
@@ -557,7 +565,7 @@
         },
         {
           "timestamp": "00:06:48",
-          "it": "Tu sei della Birmania, vero?",
+          "it": "Tu sei della Birmania, vero? Era bello lì? Ti manca la tua famiglia?",
           "de": "Du kommst aus Burma, oder? War es schön da?"
         }
       ],
@@ -585,8 +593,8 @@
           "de": "Na, na, Hagrid. Das hier bedeutet keineswegs Lebewohl."
         },
         {
-          "timestamp": "00:06:22",
-          "it": "starsene là, giorno dopo giorno.",
+          "timestamp": "00:06:19",
+          "it": "Mi scuso per lui... Non capisce cosa vuol dire... starsene là, giorno dopo giorno. Guardando le facce disgustate della gente che ti passa accanto.",
           "de": "Er hat keine Ahnung, was es heißt, daliegen zu müssen"
         }
       ],
@@ -615,7 +623,7 @@
         },
         {
           "timestamp": "00:04:00",
-          "it": "HARRY POTTER E LA PIETRA FILOSOFALE",
+          "it": "HARRY POTTER E LA PIETRA FILOSOFALE LoS PiRaTaS 2002 *** by Kurgan ***",
           "de": "HARRY POTTER UND DER STEIN DER WEISEN"
         }
       ],
@@ -644,7 +652,7 @@
         },
         {
           "timestamp": "00:04:00",
-          "it": "HARRY POTTER E LA PIETRA FILOSOFALE",
+          "it": "HARRY POTTER E LA PIETRA FILOSOFALE LoS PiRaTaS 2002 *** by Kurgan ***",
           "de": "HARRY POTTER UND DER STEIN DER WEISEN"
         }
       ],
@@ -668,7 +676,7 @@
       "examples": [
         {
           "timestamp": "00:04:11",
-          "it": "Alzati!",
+          "it": "Alzati! In piedi!",
           "de": "Aufstehen! Steh auf!"
         },
         {
@@ -697,13 +705,13 @@
       "examples": [
         {
           "timestamp": "00:04:47",
-          "it": "Ecco il bimbo che compie gli anni...",
+          "it": "Ecco il bimbo che compie gli anni... Buon compleanno figliolo!",
           "de": "- Da kommt ja unser Geburtstagskind. - Herzlichen Glückwunsch, mein Sohn."
         },
         {
-          "timestamp": "00:05:29",
-          "it": "Ecco cosa faremo...",
-          "de": "Ich sag dir, was wir machen."
+          "timestamp": "00:05:17",
+          "it": "Quanti sono? 36. Li ho contati io stesso... L'anno scorso erano 37! Alcuni sono più grandi dell'anno scorso... Non m'importa quanto sono grandi! Ecco cosa faremo... Compreremo 2 nuovi regali.",
+          "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!"
         }
       ],
       "wordInfo": {
@@ -725,14 +733,14 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:05:02",
-          "it": "Nel giorno speciale del mio Dudley.",
-          "de": "wenn mein Dudley seinen besonderen Tag hat!"
+          "timestamp": "00:04:53",
+          "it": "Non hai ancora preparato la colazione... e cerca di non bruciare nulla! Si, zia Petunia. Voglio che tutto sia perfetto. Nel giorno speciale del mio Dudley. Sbrigati! Porta il mio caffè ragazzo! Si zio Vernon.",
+          "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,"
         },
         {
-          "timestamp": "00:05:07",
-          "it": "Porta il mio caffè ragazzo!",
-          "de": "- Los, bring mir meinen Kaffee, Junge! - Ja, Onkel Vernon."
+          "timestamp": "00:04:53",
+          "it": "Non hai ancora preparato la colazione... e cerca di non bruciare nulla! Si, zia Petunia. Voglio che tutto sia perfetto. Nel giorno speciale del mio Dudley. Sbrigati! Porta il mio caffè ragazzo! Si zio Vernon.",
+          "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,"
         }
       ],
       "wordInfo": {
@@ -754,14 +762,14 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:05:07",
-          "it": "Porta il mio caffè ragazzo!",
-          "de": "- Los, bring mir meinen Kaffee, Junge! - Ja, Onkel Vernon."
+          "timestamp": "00:04:53",
+          "it": "Non hai ancora preparato la colazione... e cerca di non bruciare nulla! Si, zia Petunia. Voglio che tutto sia perfetto. Nel giorno speciale del mio Dudley. Sbrigati! Porta il mio caffè ragazzo! Si zio Vernon.",
+          "de": "- Ja, Tante Petunia. - Ich will doch, dass alles perfekt ist,"
         },
         {
           "timestamp": "00:05:46",
-          "it": "Ti avverto ragazzo...",
-          "de": "Ich warne dich, Junge."
+          "it": "Ti avverto ragazzo... Niente d'insolito... Niente. O non mangerai per una settimana. Capito?",
+          "de": "Keine von deinen Albernheiten,"
         }
       ],
       "wordInfo": {
@@ -783,13 +791,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:05:19",
-          "it": "L'anno scorso erano 37!",
-          "de": "36?! Aber letztes Jahr waren es 37!"
+          "timestamp": "00:05:17",
+          "it": "Quanti sono? 36. Li ho contati io stesso... L'anno scorso erano 37! Alcuni sono più grandi dell'anno scorso... Non m'importa quanto sono grandi! Ecco cosa faremo... Compreremo 2 nuovi regali.",
+          "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!"
         },
         {
-          "timestamp": "00:05:24",
-          "it": "Alcuni sono più grandi dell'anno scorso...",
+          "timestamp": "00:05:17",
+          "it": "Quanti sono? 36. Li ho contati io stesso... L'anno scorso erano 37! Alcuni sono più grandi dell'anno scorso... Non m'importa quanto sono grandi! Ecco cosa faremo... Compreremo 2 nuovi regali.",
           "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!"
         }
       ],
@@ -812,13 +820,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:05:24",
-          "it": "Alcuni sono più grandi dell'anno scorso...",
+          "timestamp": "00:05:17",
+          "it": "Quanti sono? 36. Li ho contati io stesso... L'anno scorso erano 37! Alcuni sono più grandi dell'anno scorso... Non m'importa quanto sono grandi! Ecco cosa faremo... Compreremo 2 nuovi regali.",
           "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!"
         },
         {
-          "timestamp": "00:05:26",
-          "it": "Non m'importa quanto sono grandi!",
+          "timestamp": "00:05:17",
+          "it": "Quanti sono? 36. Li ho contati io stesso... L'anno scorso erano 37! Alcuni sono più grandi dell'anno scorso... Non m'importa quanto sono grandi! Ecco cosa faremo... Compreremo 2 nuovi regali.",
           "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!"
         }
       ],
@@ -841,13 +849,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:05:29",
-          "it": "Ecco cosa faremo...",
-          "de": "Ich sag dir, was wir machen."
+          "timestamp": "00:05:17",
+          "it": "Quanti sono? 36. Li ho contati io stesso... L'anno scorso erano 37! Alcuni sono più grandi dell'anno scorso... Non m'importa quanto sono grandi! Ecco cosa faremo... Compreremo 2 nuovi regali.",
+          "de": "- Einige sind größer als letztes Jahr. - Das ist mir egal!"
         },
         {
-          "timestamp": "00:06:21",
-          "it": "Non capisce cosa vuol dire...",
+          "timestamp": "00:06:19",
+          "it": "Mi scuso per lui... Non capisce cosa vuol dire... starsene là, giorno dopo giorno. Guardando le facce disgustate della gente che ti passa accanto.",
           "de": "Er hat keine Ahnung, was es heißt, daliegen zu müssen"
         }
       ],
@@ -870,13 +878,13 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:05:48",
-          "it": "Niente d'insolito... Niente.",
+          "timestamp": "00:05:46",
+          "it": "Ti avverto ragazzo... Niente d'insolito... Niente. O non mangerai per una settimana. Capito?",
           "de": "Keine von deinen Albernheiten,"
         },
         {
-          "timestamp": "00:05:48",
-          "it": "Niente d'insolito... Niente.",
+          "timestamp": "00:05:46",
+          "it": "Ti avverto ragazzo... Niente d'insolito... Niente. O non mangerai per una settimana. Capito?",
           "de": "Keine von deinen Albernheiten,"
         }
       ],
@@ -900,13 +908,100 @@
       "examples": [
         {
           "timestamp": "00:06:09",
-          "it": "Muoviti!",
-          "de": "Mach was!"
+          "it": "Muoviti! Muoviti!! Sta dormendo! E' noioso!",
+          "de": "- Beweg dich! - Die Schlange schläft."
         },
         {
-          "timestamp": "00:06:11",
-          "it": "Muoviti!!",
+          "timestamp": "00:06:09",
+          "it": "Muoviti! Muoviti!! Sta dormendo! E' noioso!",
           "de": "- Beweg dich! - Die Schlange schläft."
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c1_sta",
+      "type": "word",
+      "chapterId": 1,
+      "it": "sta",
+      "de": "",
+      "freq": 2,
+      "examples": [
+        {
+          "timestamp": "00:06:09",
+          "it": "Muoviti! Muoviti!! Sta dormendo! E' noioso!",
+          "de": "- Beweg dich! - Die Schlange schläft."
+        },
+        {
+          "timestamp": "00:06:55",
+          "it": "NATO IN CATTIVITA' Capisco... E' così anche per me. Non ho mai conosciuto i miei genitori. Papà, vieni! Non crederai a quello che il serpente sta facendo!",
+          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c1_mai",
+      "type": "word",
+      "chapterId": 1,
+      "it": "mai",
+      "de": "",
+      "freq": 2,
+      "examples": [
+        {
+          "timestamp": "00:06:37",
+          "it": "Non ho mai parlato a un serpente prima. Parli di frequente alle persone?",
+          "de": "Na ja, ich hab noch nie mit 'ner Schlange gesprochen."
+        },
+        {
+          "timestamp": "00:06:55",
+          "it": "NATO IN CATTIVITA' Capisco... E' così anche per me. Non ho mai conosciuto i miei genitori. Papà, vieni! Non crederai a quello che il serpente sta facendo!",
+          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c1_serpente",
+      "type": "word",
+      "chapterId": 1,
+      "it": "serpente",
+      "de": "",
+      "freq": 2,
+      "examples": [
+        {
+          "timestamp": "00:06:37",
+          "it": "Non ho mai parlato a un serpente prima. Parli di frequente alle persone?",
+          "de": "Na ja, ich hab noch nie mit 'ner Schlange gesprochen."
+        },
+        {
+          "timestamp": "00:06:55",
+          "it": "NATO IN CATTIVITA' Capisco... E' così anche per me. Non ho mai conosciuto i miei genitori. Papà, vieni! Non crederai a quello che il serpente sta facendo!",
+          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
         }
       ],
       "wordInfo": {
@@ -929,7 +1024,7 @@
       "examples": [
         {
           "timestamp": "00:01:22",
-          "it": "Dovevo immaginare che l'avrei trovata qui...",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         }
       ],
@@ -953,7 +1048,7 @@
       "examples": [
         {
           "timestamp": "00:01:22",
-          "it": "Dovevo immaginare che l'avrei trovata qui...",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         }
       ],
@@ -977,7 +1072,7 @@
       "examples": [
         {
           "timestamp": "00:01:22",
-          "it": "Dovevo immaginare che l'avrei trovata qui...",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         }
       ],
@@ -1001,7 +1096,7 @@
       "examples": [
         {
           "timestamp": "00:01:22",
-          "it": "Dovevo immaginare che l'avrei trovata qui...",
+          "it": "Dovevo immaginare che l'avrei trovata qui... Professoressa McGonagall...",
           "de": "Ich hätte wissen müssen, dass Sie hier sind, Professor McGonagall."
         }
       ],
@@ -1049,8 +1144,8 @@
       "examples": [
         {
           "timestamp": "00:01:43",
-          "it": "Sono vere le voci... Albus?",
-          "de": "Darf man den Gerüchten trauen, Albus?"
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1073,8 +1168,8 @@
       "examples": [
         {
           "timestamp": "00:01:43",
-          "it": "Sono vere le voci... Albus?",
-          "de": "Darf man den Gerüchten trauen, Albus?"
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1096,8 +1191,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:45",
-          "it": "Temo di si professoressa...",
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
           "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
@@ -1120,8 +1215,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:49",
-          "it": "Le buone e le cattive.",
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
           "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
@@ -1144,8 +1239,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:49",
-          "it": "Le buone e le cattive.",
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
           "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
@@ -1168,9 +1263,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:54",
-          "it": "Hagrid lo porterà qui",
-          "de": "- Was macht der Junge? - Hagrid bringt ihn her."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1192,9 +1287,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:56",
-          "it": "Lei trova saggio affidare ad Hagrid",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1216,9 +1311,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:56",
-          "it": "Lei trova saggio affidare ad Hagrid",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1240,9 +1335,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:56",
-          "it": "Lei trova saggio affidare ad Hagrid",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1264,9 +1359,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:56",
-          "it": "Lei trova saggio affidare ad Hagrid",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1288,9 +1383,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:58",
-          "it": "un compito importante come questo?",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1312,9 +1407,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:58",
-          "it": "un compito importante come questo?",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1336,9 +1431,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:01:58",
-          "it": "un compito importante come questo?",
-          "de": "Halten Sie es für weise, Hagrid etwas so Wichtiges anzuvertrauen?"
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1360,9 +1455,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:00",
-          "it": "Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
-          "de": "Ach, Professor, Hagrid würde ich mein Leben anvertrauen."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1384,9 +1479,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:00",
-          "it": "Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
-          "de": "Ach, Professor, Hagrid würde ich mein Leben anvertrauen."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1408,9 +1503,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:00",
-          "it": "Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
-          "de": "Ach, Professor, Hagrid würde ich mein Leben anvertrauen."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1432,9 +1527,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:00",
-          "it": "Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
-          "de": "Ach, Professor, Hagrid würde ich mein Leben anvertrauen."
+          "timestamp": "00:01:43",
+          "it": "Sono vere le voci... Albus? Temo di si professoressa... Le buone e le cattive. E il bimbo? Hagrid lo porterà qui Lei trova saggio affidare ad Hagrid un compito importante come questo? Ah Professoressa, affiderei ad Hagrid la mia stessa vita!",
+          "de": "Ich fürchte, sie sind wahr, Professor. Die guten, aber auch die schlechten."
         }
       ],
       "wordInfo": {
@@ -1456,9 +1551,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:28",
-          "it": "Nessun problema, spero, Hagrid?",
-          "de": "- Und es gab keine Probleme, Hagrid? - Nein, Sir."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1480,9 +1575,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:28",
-          "it": "Nessun problema, spero, Hagrid?",
-          "de": "- Und es gab keine Probleme, Hagrid? - Nein, Sir."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1504,9 +1599,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:28",
-          "it": "Nessun problema, spero, Hagrid?",
-          "de": "- Und es gab keine Probleme, Hagrid? - Nein, Sir."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1528,9 +1623,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:32",
-          "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
-          "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1552,9 +1647,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:32",
-          "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
-          "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1576,9 +1671,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:32",
-          "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
-          "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1600,9 +1695,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:32",
-          "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
-          "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1624,9 +1719,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:32",
-          "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
-          "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1648,9 +1743,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:32",
-          "it": "Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
-          "de": "Der kleine Rabauke schlief ein, als wir gerade über Bristol flogen."
+          "timestamp": "00:02:24",
+          "it": "Professor Silente, Signore Professoressa McGonagall Nessun problema, spero, Hagrid? No Signore! Il marmocchio si è addormentato mentre volavamo sopra Bristol.",
+          "de": "Professor Dumbledore, Sir. Professor McGonagall."
         }
       ],
       "wordInfo": {
@@ -1768,9 +1863,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -1792,9 +1887,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -1816,9 +1911,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -1840,9 +1935,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -1864,9 +1959,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:49",
-          "it": "Crede davvero che sia il caso di lasciarlo con queste persone?",
-          "de": "Können Sie es wirklich verantworten, dass er bei diesen Leuten bleibt?"
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -1888,8 +1983,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
@@ -1912,8 +2007,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
@@ -1936,8 +2031,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
@@ -1960,8 +2055,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
@@ -1984,8 +2079,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:53",
-          "it": "Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili...",
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
           "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
@@ -2008,81 +2103,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:02:59",
-          "it": "Dico sul serio... Sono i soli parenti che ha!",
-          "de": "- Sie sind wirklich... - Es sind seine einzigen Verwandten."
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c1_sul",
-      "type": "word",
-      "chapterId": 1,
-      "it": "sul",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:02:59",
-          "it": "Dico sul serio... Sono i soli parenti che ha!",
-          "de": "- Sie sind wirklich... - Es sind seine einzigen Verwandten."
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c1_serio",
-      "type": "word",
-      "chapterId": 1,
-      "it": "serio",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:02:59",
-          "it": "Dico sul serio... Sono i soli parenti che ha!",
-          "de": "- Sie sind wirklich... - Es sind seine einzigen Verwandten."
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c1_soli",
-      "type": "word",
-      "chapterId": 1,
-      "it": "soli",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:02:59",
-          "it": "Dico sul serio... Sono i soli parenti che ha!",
-          "de": "- Sie sind wirklich... - Es sind seine einzigen Verwandten."
+          "timestamp": "00:02:48",
+          "it": "Albus... Crede davvero che sia il caso di lasciarlo con queste persone? Li ho osservati tutto il giorno... Sono la peggior specie di babbani immaginabili... Dico sul serio... Sono i soli parenti che ha! Questo piccino diventerà famoso... Non ci sarà bambino nel nostro mondo che non conoscerà il suo nome. Esatto! Sarà molto meglio per lui crescere lontano da tutto questo.",
+          "de": "Sie gehören zur schlimmsten Sorte von Muggeln, die es gibt."
         }
       ],
       "wordInfo": {
@@ -2109,8 +2132,8 @@
           "de": "MR. H. POTTER Im Schrank unter der Treppe"
         },
         {
-          "timestamp": "00:09:13",
-          "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
           "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
@@ -2133,43 +2156,14 @@
       "freq": 4,
       "examples": [
         {
-          "timestamp": "00:09:13",
-          "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
           "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         },
         {
           "timestamp": "00:10:57",
-          "it": "Oggi nessuna maledetta lettera.",
-          "de": "Heute mal keine verflixten Briefe. Oh nein!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_papà",
-      "type": "word",
-      "chapterId": 2,
-      "it": "papà",
-      "de": "",
-      "freq": 3,
-      "examples": [
-        {
-          "timestamp": "00:07:02",
-          "it": "Papà, vieni!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
-        },
-        {
-          "timestamp": "00:09:13",
-          "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
-          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
+          "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         }
       ],
       "wordInfo": {
@@ -2196,8 +2190,8 @@
           "de": "Mein Schätzchen! Wie bist du denn da reingeraten?"
         },
         {
-          "timestamp": "00:08:22",
-          "it": "Il vetro è scomparso... come per magia!",
+          "timestamp": "00:08:18",
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
           "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         }
       ],
@@ -2225,9 +2219,9 @@
           "de": "Durch diesen Briefschlitz kommt keine Post mehr!"
         },
         {
-          "timestamp": "00:10:48",
-          "it": "Perché non c'è posta la domenica?",
-          "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!"
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -2250,100 +2244,13 @@
       "examples": [
         {
           "timestamp": "00:10:40",
-          "it": "Bel giorno la domenica!",
-          "de": "Ein wunderschöner Tag, der Sonntag."
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         },
         {
-          "timestamp": "00:10:48",
-          "it": "Perché non c'è posta la domenica?",
-          "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_mai",
-      "type": "word",
-      "chapterId": 2,
-      "it": "mai",
-      "de": "",
-      "freq": 2,
-      "examples": [
-        {
-          "timestamp": "00:07:00",
-          "it": "Non ho mai conosciuto i miei genitori.",
-          "de": "Ah ja. Geht mir genauso. Ich kenne meine Eltern auch nicht."
-        },
-        {
-          "timestamp": "00:09:16",
-          "it": "Tua? E chi mai ti scriverebbe?",
-          "de": "Dir? Wer schreibt dir denn schon?"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_serpente",
-      "type": "word",
-      "chapterId": 2,
-      "it": "serpente",
-      "de": "",
-      "freq": 2,
-      "examples": [
-        {
-          "timestamp": "00:07:04",
-          "it": "Non crederai a quello che il serpente sta facendo!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
-        },
-        {
-          "timestamp": "00:07:37",
-          "it": "Il Serpente!",
-          "de": "Eine Schlange!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_sta",
-      "type": "word",
-      "chapterId": 2,
-      "it": "sta",
-      "de": "",
-      "freq": 2,
-      "examples": [
-        {
-          "timestamp": "00:07:04",
-          "it": "Non crederai a quello che il serpente sta facendo!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
-        },
-        {
-          "timestamp": "00:09:10",
-          "it": "Oh...Margie sta male, le aringhe erano guaste!",
-          "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel."
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -2370,8 +2277,8 @@
           "de": "Mein Schätzchen! Wie bist du denn da reingeraten?"
         },
         {
-          "timestamp": "00:10:43",
-          "it": "A mio parere il migliore di tutti.",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
@@ -2394,14 +2301,43 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:08:22",
-          "it": "Il vetro è scomparso... come per magia!",
+          "timestamp": "00:08:18",
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
           "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         },
         {
           "timestamp": "00:08:30",
           "it": "Non esistono cose come la magia!",
           "de": "Es gibt keine Zauberei."
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_papà",
+      "type": "word",
+      "chapterId": 2,
+      "it": "papà",
+      "de": "",
+      "freq": 2,
+      "examples": [
+        {
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
+        },
+        {
+          "timestamp": "00:12:11",
+          "it": "Papà è impazzito, non è vero?",
+          "de": "Jetzt ist Dad verrückt geworden, oder?"
         }
       ],
       "wordInfo": {
@@ -2423,9 +2359,9 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:09:16",
-          "it": "Tua? E chi mai ti scriverebbe?",
-          "de": "Dir? Wer schreibt dir denn schon?"
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         },
         {
           "timestamp": "00:13:08",
@@ -2457,9 +2393,9 @@
           "de": "Durch diesen Briefschlitz kommt keine Post mehr!"
         },
         {
-          "timestamp": "00:13:50",
-          "it": "sei un po' più abbondante di quanto mi aspettavo. Soprattutto sulla pancia.",
-          "de": "Du bist kräftiger, als ich gedacht hätte. Besonders um die Mitte herum."
+          "timestamp": "00:13:47",
+          "it": "Non ti vedo da quando eri un affarino, Harry, ma... sei un po' più abbondante di quanto mi aspettavo. Soprattutto sulla pancia.",
+          "de": "Als ich dich das letzte Mal gesehen hab, warst du noch ein Baby, Harry."
         }
       ],
       "wordInfo": {
@@ -2516,7 +2452,7 @@
         },
         {
           "timestamp": "00:11:59",
-          "it": "Le lettere sono mie!",
+          "it": "Le lettere sono mie! Ora basta! Ce ne andiamo lontano... molto lontano... dove non possono trovarci!",
           "de": "Die Briefe gehören mir! Lass mich sofort los!"
         }
       ],
@@ -2539,14 +2475,14 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:10:46",
-          "it": "Sai perché Dudley?",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         },
         {
-          "timestamp": "00:10:48",
-          "it": "Perché non c'è posta la domenica?",
-          "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!"
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -2568,9 +2504,9 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:10:48",
-          "it": "Perché non c'è posta la domenica?",
-          "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!"
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         },
         {
           "timestamp": "00:10:53",
@@ -2597,8 +2533,8 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:11:00",
-          "it": "Nossignore! Non una sola dannatissima lettera!",
+          "timestamp": "00:10:57",
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
           "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         },
         {
@@ -2626,182 +2562,14 @@
       "freq": 2,
       "examples": [
         {
-          "timestamp": "00:12:04",
-          "it": "Ora basta! Ce ne andiamo lontano...",
-          "de": "Jetzt reicht's! Wir fahren weg!"
+          "timestamp": "00:11:59",
+          "it": "Le lettere sono mie! Ora basta! Ce ne andiamo lontano... molto lontano... dove non possono trovarci!",
+          "de": "Die Briefe gehören mir! Lass mich sofort los!"
         },
         {
-          "timestamp": "00:12:08",
-          "it": "molto lontano... dove non possono trovarci!",
-          "de": "Weit weg! Wo die uns nicht finden!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_conosciuto",
-      "type": "word",
-      "chapterId": 2,
-      "it": "conosciuto",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:00",
-          "it": "Non ho mai conosciuto i miei genitori.",
-          "de": "Ah ja. Geht mir genauso. Ich kenne meine Eltern auch nicht."
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_miei",
-      "type": "word",
-      "chapterId": 2,
-      "it": "miei",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:00",
-          "it": "Non ho mai conosciuto i miei genitori.",
-          "de": "Ah ja. Geht mir genauso. Ich kenne meine Eltern auch nicht."
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_genitori",
-      "type": "word",
-      "chapterId": 2,
-      "it": "genitori",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:00",
-          "it": "Non ho mai conosciuto i miei genitori.",
-          "de": "Ah ja. Geht mir genauso. Ich kenne meine Eltern auch nicht."
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_vieni",
-      "type": "word",
-      "chapterId": 2,
-      "it": "vieni",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:02",
-          "it": "Papà, vieni!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_crederai",
-      "type": "word",
-      "chapterId": 2,
-      "it": "crederai",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:04",
-          "it": "Non crederai a quello che il serpente sta facendo!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_quello",
-      "type": "word",
-      "chapterId": 2,
-      "it": "quello",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:04",
-          "it": "Non crederai a quello che il serpente sta facendo!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
-        }
-      ],
-      "wordInfo": {
-        "pos": "",
-        "lemma": "",
-        "infinitive": ""
-      },
-      "source": {
-        "it": "srt-derived",
-        "de": "manual/override-or-api-later"
-      }
-    },
-    {
-      "id": "w_c2_facendo",
-      "type": "word",
-      "chapterId": 2,
-      "it": "facendo",
-      "de": "",
-      "freq": 1,
-      "examples": [
-        {
-          "timestamp": "00:07:04",
-          "it": "Non crederai a quello che il serpente sta facendo!",
-          "de": "Mami, Dad! Nicht zu fassen, was die Schlange da macht!"
+          "timestamp": "00:11:59",
+          "it": "Le lettere sono mie! Ora basta! Ce ne andiamo lontano... molto lontano... dove non possono trovarci!",
+          "de": "Die Briefe gehören mir! Lass mich sofort los!"
         }
       ],
       "wordInfo": {
@@ -2824,7 +2592,7 @@
       "examples": [
         {
           "timestamp": "00:07:30",
-          "it": "Grazie.",
+          "it": "Grazie. In qualunque momento...",
           "de": "Danke sehr."
         }
       ],
@@ -2847,9 +2615,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:07:32",
-          "it": "In qualunque momento...",
-          "de": "Kein Thema."
+          "timestamp": "00:07:30",
+          "it": "Grazie. In qualunque momento...",
+          "de": "Danke sehr."
         }
       ],
       "wordInfo": {
@@ -2871,9 +2639,33 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:07:32",
-          "it": "In qualunque momento...",
-          "de": "Kein Thema."
+          "timestamp": "00:07:30",
+          "it": "Grazie. In qualunque momento...",
+          "de": "Danke sehr."
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_serpente",
+      "type": "word",
+      "chapterId": 2,
+      "it": "serpente",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:07:37",
+          "it": "Il Serpente!",
+          "de": "Eine Schlange!"
         }
       ],
       "wordInfo": {
@@ -3016,8 +2808,8 @@
       "examples": [
         {
           "timestamp": "00:08:18",
-          "it": "Cosa è successo?",
-          "de": "- Was ist passiert? - Ich hab keine Ahnung!"
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
+          "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         }
       ],
       "wordInfo": {
@@ -3040,8 +2832,8 @@
       "examples": [
         {
           "timestamp": "00:08:18",
-          "it": "Cosa è successo?",
-          "de": "- Was ist passiert? - Ich hab keine Ahnung!"
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
+          "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         }
       ],
       "wordInfo": {
@@ -3063,9 +2855,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:08:20",
-          "it": "Giuro che non lo so!",
-          "de": "- Was ist passiert? - Ich hab keine Ahnung!"
+          "timestamp": "00:08:18",
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
+          "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         }
       ],
       "wordInfo": {
@@ -3087,8 +2879,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:08:22",
-          "it": "Il vetro è scomparso... come per magia!",
+          "timestamp": "00:08:18",
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
           "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         }
       ],
@@ -3111,8 +2903,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:08:22",
-          "it": "Il vetro è scomparso... come per magia!",
+          "timestamp": "00:08:18",
+          "it": "Cosa è successo? Giuro che non lo so! Il vetro è scomparso... come per magia!",
           "de": "Plötzlich war das Glas verschwunden, wie durch Zauberei!"
         }
       ],
@@ -3280,8 +3072,32 @@
       "examples": [
         {
           "timestamp": "00:09:10",
-          "it": "Oh...Margie sta male, le aringhe erano guaste!",
-          "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel."
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_sta",
+      "type": "word",
+      "chapterId": 2,
+      "it": "sta",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3304,8 +3120,8 @@
       "examples": [
         {
           "timestamp": "00:09:10",
-          "it": "Oh...Margie sta male, le aringhe erano guaste!",
-          "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel."
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3328,8 +3144,8 @@
       "examples": [
         {
           "timestamp": "00:09:10",
-          "it": "Oh...Margie sta male, le aringhe erano guaste!",
-          "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel."
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3352,8 +3168,8 @@
       "examples": [
         {
           "timestamp": "00:09:10",
-          "it": "Oh...Margie sta male, le aringhe erano guaste!",
-          "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel."
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3376,8 +3192,8 @@
       "examples": [
         {
           "timestamp": "00:09:10",
-          "it": "Oh...Margie sta male, le aringhe erano guaste!",
-          "de": "Marge hat sich den Magen verdorben an 'ner vergammelten Muschel."
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3399,8 +3215,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:09:13",
-          "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
           "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
@@ -3423,8 +3239,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:09:13",
-          "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
           "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
@@ -3447,8 +3263,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:09:13",
-          "it": "Papà! Harry ha ricevuto una lettera! Ridammela è mia!",
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
           "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
@@ -3471,9 +3287,33 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:09:16",
-          "it": "Tua? E chi mai ti scriverebbe?",
-          "de": "Dir? Wer schreibt dir denn schon?"
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_mai",
+      "type": "word",
+      "chapterId": 2,
+      "it": "mai",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3495,9 +3335,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:09:16",
-          "it": "Tua? E chi mai ti scriverebbe?",
-          "de": "Dir? Wer schreibt dir denn schon?"
+          "timestamp": "00:09:10",
+          "it": "Oh...Margie sta male, le aringhe erano guaste! Papà! Harry ha ricevuto una lettera! Ridammela è mia! Tua? E chi mai ti scriverebbe?",
+          "de": "- Dad! Harry hat einen Brief gekriegt! - Der gehört mir!"
         }
       ],
       "wordInfo": {
@@ -3736,8 +3576,8 @@
       "examples": [
         {
           "timestamp": "00:10:40",
-          "it": "Bel giorno la domenica!",
-          "de": "Ein wunderschöner Tag, der Sonntag."
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -3760,8 +3600,8 @@
       "examples": [
         {
           "timestamp": "00:10:40",
-          "it": "Bel giorno la domenica!",
-          "de": "Ein wunderschöner Tag, der Sonntag."
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -3783,8 +3623,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:43",
-          "it": "A mio parere il migliore di tutti.",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
@@ -3807,8 +3647,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:43",
-          "it": "A mio parere il migliore di tutti.",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
@@ -3831,8 +3671,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:43",
-          "it": "A mio parere il migliore di tutti.",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
@@ -3855,8 +3695,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:46",
-          "it": "Sai perché Dudley?",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
@@ -3879,8 +3719,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:46",
-          "it": "Sai perché Dudley?",
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
           "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
@@ -3903,9 +3743,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:50",
-          "it": "Ben detto Harry.",
-          "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!"
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -3927,9 +3767,9 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:10:50",
-          "it": "Ben detto Harry.",
-          "de": "- Weil da keine Post ausgetragen wird? - Wie Recht du hast, Harry!"
+          "timestamp": "00:10:40",
+          "it": "Bel giorno la domenica! A mio parere il migliore di tutti. Sai perché Dudley? Perché non c'è posta la domenica? Ben detto Harry.",
+          "de": "Der beste Tag der Woche, finde ich. Und wieso, Dudley?"
         }
       ],
       "wordInfo": {
@@ -3952,8 +3792,8 @@
       "examples": [
         {
           "timestamp": "00:10:57",
-          "it": "Oggi nessuna maledetta lettera.",
-          "de": "Heute mal keine verflixten Briefe. Oh nein!"
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
+          "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         }
       ],
       "wordInfo": {
@@ -3976,8 +3816,8 @@
       "examples": [
         {
           "timestamp": "00:10:57",
-          "it": "Oggi nessuna maledetta lettera.",
-          "de": "Heute mal keine verflixten Briefe. Oh nein!"
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
+          "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         }
       ],
       "wordInfo": {
@@ -4000,8 +3840,8 @@
       "examples": [
         {
           "timestamp": "00:10:57",
-          "it": "Oggi nessuna maledetta lettera.",
-          "de": "Heute mal keine verflixten Briefe. Oh nein!"
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
+          "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         }
       ],
       "wordInfo": {
@@ -4023,8 +3863,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:11:00",
-          "it": "Nossignore! Non una sola dannatissima lettera!",
+          "timestamp": "00:10:57",
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
           "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         }
       ],
@@ -4047,8 +3887,8 @@
       "freq": 1,
       "examples": [
         {
-          "timestamp": "00:11:00",
-          "it": "Nossignore! Non una sola dannatissima lettera!",
+          "timestamp": "00:10:57",
+          "it": "Oggi nessuna maledetta lettera. Nossignore! Non una sola dannatissima lettera!",
           "de": "Nicht ein einziger lumpiger Brief! Nicht einer!"
         }
       ],
@@ -4098,6 +3938,174 @@
           "timestamp": "00:11:15",
           "it": "Nossignore, neanche una schifosa miserabile...",
           "de": "Oh nein! Nicht ein winziger, erbärm..."
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_miserabile",
+      "type": "word",
+      "chapterId": 2,
+      "it": "miserabile",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:15",
+          "it": "Nossignore, neanche una schifosa miserabile...",
+          "de": "Oh nein! Nicht ein winziger, erbärm..."
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_dammi",
+      "type": "word",
+      "chapterId": 2,
+      "it": "dammi",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:47",
+          "it": "Dammi quella lettera",
+          "de": "Gib den her! Gib mir den Brief!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_quella",
+      "type": "word",
+      "chapterId": 2,
+      "it": "quella",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:47",
+          "it": "Dammi quella lettera",
+          "de": "Gib den her! Gib mir den Brief!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_lasciami",
+      "type": "word",
+      "chapterId": 2,
+      "it": "lasciami",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:54",
+          "it": "Lasciami!",
+          "de": "Loslassen!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_mie",
+      "type": "word",
+      "chapterId": 2,
+      "it": "mie",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:59",
+          "it": "Le lettere sono mie! Ora basta! Ce ne andiamo lontano... molto lontano... dove non possono trovarci!",
+          "de": "Die Briefe gehören mir! Lass mich sofort los!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_basta",
+      "type": "word",
+      "chapterId": 2,
+      "it": "basta",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:59",
+          "it": "Le lettere sono mie! Ora basta! Ce ne andiamo lontano... molto lontano... dove non possono trovarci!",
+          "de": "Die Briefe gehören mir! Lass mich sofort los!"
+        }
+      ],
+      "wordInfo": {
+        "pos": "",
+        "lemma": "",
+        "infinitive": ""
+      },
+      "source": {
+        "it": "srt-derived",
+        "de": "manual/override-or-api-later"
+      }
+    },
+    {
+      "id": "w_c2_andiamo",
+      "type": "word",
+      "chapterId": 2,
+      "it": "andiamo",
+      "de": "",
+      "freq": 1,
+      "examples": [
+        {
+          "timestamp": "00:11:59",
+          "it": "Le lettere sono mie! Ora basta! Ce ne andiamo lontano... molto lontano... dove non possono trovarci!",
+          "de": "Die Briefe gehören mir! Lass mich sofort los!"
         }
       ],
       "wordInfo": {

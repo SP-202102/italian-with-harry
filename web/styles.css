@@ -44,13 +44,13 @@ body[data-theme="light"] {
 
 /* ---------- Theme: smilingpirate ---------- */
 body[data-theme="smilingpirate"] {
-  --bg0: #061a3a; /* dark navy, close to logo background */
-  --bg1: #061a3a; /* keep same so no gradients */
+  --bg0: #000030; /* dark navy, close to logo background - was at some point 061a3a */
+  --bg1: #000030; /* keep same so no gradients */
   --card: rgba(7, 24, 44, 0.78);
   --border: rgba(255, 234, 90, 0.22);
-  --text: #eaf1ff;
+  --text: #eaf1ff; /* #eaf1ff off-white */
   --muted: rgba(234, 241, 255, 0.70);
-  --accent: #ffe44d;
+  --accent: #FFFF33; /* was #ffe44d */
   --accent2: #ffd100;
   --glow: rgba(255, 228, 77, 0.35);
 
@@ -355,4 +355,107 @@ button:hover {
   margin-top: 8px;
   font-size: 12px;
   color: var(--muted);
+}
+
+/* For edit + modal UI */
+.editBox{
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid var(--control-border);
+  background: var(--control-bg);
+  color: var(--text);
+  resize: vertical;
+}
+
+.backPlain{
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.25;
+  white-space: pre-wrap;
+}
+
+.muted{ color: var(--muted); }
+
+.cardActions{
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.spacer{ flex: 1; }
+
+.links{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.linkBtn{
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.tiny{ font-size: 12px; color: var(--muted); }
+
+.modalBackdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 80;
+}
+
+.modal{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(980px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px var(--shadow);
+  z-index: 81;
+}
+
+.modalTitle{ font-weight: 900; font-size: 18px; margin-bottom: 8px; }
+.modalText{ color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+
+.modalRow{
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.input{
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--control-border);
+  background: var(--control-bg);
+  color: var(--text);
+}
+
+.modalActions{
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.themeMenuSectionTitle{
+  margin-top: 6px;
+  font-weight: 800;
+  opacity: 0.9;
 }
